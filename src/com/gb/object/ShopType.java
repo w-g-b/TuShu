@@ -11,18 +11,18 @@ public class ShopType {
 
     private int id;
     private String name;
-    private Station station;
+    private int stationId;
 
-    public ShopType(int id, String name, Station station) {
+    public ShopType(int id, String name, int stationId) {
         this.id = id;
         this.name = name;
-        this.station = station;
+        this.stationId = stationId;
     }
 
-    public ShopType(String name, Station station) {
+    public ShopType(String name, int stationId) {
         this.name=name;
-        this.station=station;
-        id = AllocationId.newId(station.getId());
+        this.stationId =stationId;
+        id = AllocationId.newId(stationId);
     }
 
     public int getId() {
@@ -38,11 +38,11 @@ public class ShopType {
         this.name = name;
     }
 
-    public Station getStation() {
-        return station;
+    public int getStation() {
+        return stationId;
     }
 
-    public void setStation(Station station) {
-        this.station = station;
+    public void setStation(int stationId) {
+        this.stationId = stationId;
     }
 }

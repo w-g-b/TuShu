@@ -6,22 +6,29 @@ import com.gb.util.AllocationId;
 public class Station {
     private int id;
     private String name;
-    private Line line;
+    private int lineId;
     private boolean isTransfer;
 
     //    public Station() {
     //		id= AllocationId.newId();
     //    }
-    public Station(String name, Line line) {
-        this.line = line;
+    public Station(String name, int lineId) {
+        this.lineId = lineId;
         this.name = name;
-        this.id = AllocationId.newId(line.getId());
+        this.id = AllocationId.newId(lineId);
     }
 
-    public Station(int id, String name, Line line, boolean isTransfer) {
+    public Station(String name, int lineId, boolean isTransfer) {
+        this.name = name;
+        this.lineId = lineId;
+        this.isTransfer = isTransfer;
+        this.id = AllocationId.newId(lineId);
+    }
+
+    public Station(int id, String name, int lineId, boolean isTransfer) {
         this.id = id;
         this.name = name;
-        this.line = line;
+        this.lineId = lineId;
         this.isTransfer = isTransfer;
     }
 
@@ -37,12 +44,12 @@ public class Station {
         this.name = name;
     }
 
-    public Line getLine() {
-        return line;
+    public int getLineId() {
+        return lineId;
     }
 
-    public void setLine(Line line) {
-        this.line = line;
+    public void setLineId(int lineId) {
+        this.lineId = lineId;
     }
 
     public boolean isTransfer() {

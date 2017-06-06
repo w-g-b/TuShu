@@ -8,30 +8,30 @@ import com.gb.util.AllocationId;
 public class SpecificShop {
     private int id;
     private String name;
-    private ShopType shopType;
+    private int shopTypeId;
     private int distanceToStation;
     private int starLevel;
     private int remarkGrade;
-    private int remarkContent;
+    private String remarkContent;
 
-    public SpecificShop(int id, String name, ShopType shopType, int distanceToStation, int starLevel, int remarkGrade, int remarkContent) {
+    public SpecificShop(int id, String name, int shopTypeId, int distanceToStation, int starLevel, int remarkGrade, String remarkContent) {
         this.id = id;
         this.name = name;
-        this.shopType = shopType;
+        this.shopTypeId = shopTypeId;
         this.distanceToStation = distanceToStation;
         this.starLevel = starLevel;
         this.remarkGrade = remarkGrade;
         this.remarkContent = remarkContent;
     }
 
-    public SpecificShop(String name, ShopType shopType, int distanceToStation, int starLevel, int remarkGrade, int remarkContent) {
+    public SpecificShop(String name, int shopTypeId, int distanceToStation, int starLevel, int remarkGrade, String remarkContent) {
         this.name = name;
-        this.shopType = shopType;
+        this.shopTypeId = shopTypeId;
         this.distanceToStation = distanceToStation;
         this.starLevel = starLevel;
         this.remarkGrade = remarkGrade;
         this.remarkContent = remarkContent;
-        this.id = AllocationId.newId(shopType.getId());
+        this.id = AllocationId.newId(shopTypeId);
     }
 
     public int getId() {
@@ -46,12 +46,12 @@ public class SpecificShop {
         this.name = name;
     }
 
-    public ShopType getShopType() {
-        return shopType;
+    public int getShopTypeId() {
+        return shopTypeId;
     }
 
-    public void setShopType(ShopType shopType) {
-        this.shopType = shopType;
+    public void setShopTypeId(int shopTypeId) {
+        this.shopTypeId = shopTypeId;
     }
 
     public int getDistanceToStation() {
@@ -78,11 +78,11 @@ public class SpecificShop {
         this.remarkGrade = remarkGrade;
     }
 
-    public int getRemarkContent() {
+    public String getRemarkContent() {
         return remarkContent;
     }
 
-    public void setRemarkContent(int remarkContent) {
+    public void setRemarkContent(String remarkContent) {
         this.remarkContent = remarkContent;
     }
 }

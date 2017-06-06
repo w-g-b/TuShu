@@ -7,9 +7,9 @@ public class Line {
 	private String name;
 	private int firstStation;
 	private int finallyStation;
-	public Line(){
-		this.id=AllocationId.newId(AllocationId.LINE_TYPE);
-	}
+//	public Line(){
+//		this.id=AllocationId.newId(AllocationId.LINE_TYPE);
+//	}
 	public Line(String name){
 		this.name=name;
 		this.id=AllocationId.newId(AllocationId.LINE_TYPE);
@@ -35,9 +35,9 @@ public class Line {
 	public int getId() {
 		return id;
 	}
-	public String idToString(){
-		return "0x"+Integer.toHexString(id);
-	}
+//	public String idToString(){
+//		return "0x"+Integer.toHexString(id);
+//	}
 	public String getName() {
 		return name;
 	}

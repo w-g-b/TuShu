@@ -10,25 +10,22 @@ public class SpecificShop {
     private String name;
     private int shopTypeId;
     private int distanceToStation;
-    private int starLevel;
     private int remarkGrade;
     private String remarkContent;
 
-    public SpecificShop(int id, String name, int shopTypeId, int distanceToStation, int starLevel, int remarkGrade, String remarkContent) {
+    public SpecificShop(int id, String name, int shopTypeId, int distanceToStation, int remarkGrade, String remarkContent) {
         this.id = id;
         this.name = name;
         this.shopTypeId = shopTypeId;
         this.distanceToStation = distanceToStation;
-        this.starLevel = starLevel;
         this.remarkGrade = remarkGrade;
         this.remarkContent = remarkContent;
     }
 
-    public SpecificShop(String name, int shopTypeId, int distanceToStation, int starLevel, int remarkGrade, String remarkContent) {
+    public SpecificShop(String name, int shopTypeId, int distanceToStation, int remarkGrade, String remarkContent) {
         this.name = name;
         this.shopTypeId = shopTypeId;
         this.distanceToStation = distanceToStation;
-        this.starLevel = starLevel;
         this.remarkGrade = remarkGrade;
         this.remarkContent = remarkContent;
         this.id = AllocationId.newId(shopTypeId);
@@ -62,13 +59,6 @@ public class SpecificShop {
         this.distanceToStation = distanceToStation;
     }
 
-    public int getStarLevel() {
-        return starLevel;
-    }
-
-    public void setStarLevel(int starLevel) {
-        this.starLevel = starLevel;
-    }
 
     public int getRemarkGrade() {
         return remarkGrade;

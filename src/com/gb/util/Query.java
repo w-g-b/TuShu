@@ -1,53 +1,40 @@
 package com.gb.util;
 
-import java.io.*;
-import java.util.Properties;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class Query {
-    private static Properties name2id;
-    private static Properties id2name;
-    private static Properties id2property;
-    private static Properties id2all;
-    private static BufferedWriter bw1;
-    private static BufferedWriter bw2;
-    private static BufferedWriter bw3;
-    private static BufferedWriter bw4;
 
-    static {
+    public static File newFile(String fileName) {
         File dir = new File("info");
         if (!dir.exists()) {
             dir.mkdir();
         }
-        File name2idFile = new File(dir, "name2id.tb");
-        File id2nameFile = new File(dir, "id2name.tb");
-        File id2allFile = new File(dir, "id2all.tb");
-        File id2propertyFile = new File(dir, "id2property.tb");
+        File file = new File(dir, fileName);
+        return file;
+    }
+
+    public static boolean isIdExit(int id) {
+        String idString = String.format("0x%08x", id);
+        File id2nameFile = newFile("id2name.tb");
+        BufferedReader br;
         try {
-            BufferedReader br1 = new BufferedReader(new FileReader(name2idFile));
-            BufferedReader br2 = new BufferedReader(new FileReader(id2nameFile));
-            BufferedReader br3 = new BufferedReader(new FileReader(id2allFile));
-            BufferedReader br4 = new BufferedReader(new FileReader(id2propertyFile));
-            bw1 = new BufferedWriter(new FileWriter(name2idFile, true));
-            bw2 = new BufferedWriter(new FileWriter(id2nameFile, true));
-            bw3 = new BufferedWriter(new FileWriter(id2allFile, true));
-            bw4 = new BufferedWriter(new FileWriter(id2propertyFile, true));
-            name2id = new Properties();
-            id2name = new Properties();
-            id2all = new Properties();
-            id2property = new Properties();
-            name2id.load(br1);
-            id2name.load(br2);
-            id2all.load(br3);
-            id2property.load(br4);
+            br = new BufferedReader(new FileReader(id2nameFile));
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.matches(idString + "=.*")) {
+                    return true;
+                }
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+        return false;
 
-    public static boolean isIdExist(int id) {
-        String idString = String.format("0x%08x", id);
-        String str = id2name.getProperty(idString, "");
-        return !str.isEmpty();
     }
 
     /**
@@ -55,27 +42,43 @@ public class Query {
      * @return 0表示没有找到, 其他数字代表具体id
      */
     public static int getIdByName(String name) {
-        String str = name2id.getProperty(name, "");
-        str = str.substring(2);
-        if (str.isEmpty()) {
-            return 0;
-        }
-        return Integer.parseInt(str, 16);
-    }
+        File id2nameFile = newFile("id2name.tb");
+        BufferedReader br;
+        try {
+            br = new BufferedReader(new FileReader(id2nameFile));
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.matches(".*=" + name)) {
+                    String numStr = line.substring(2);
+                    return Integer.parseInt(numStr.split("=")[0], 16);
+                }
+            }
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 
     /**
      * @param name 传入要查询的名字
      * @return null表示没有找到, 其他包含该对象所有的信息
      */
     public static String getInfoByName(String name) {
-        String str = name2id.getProperty(name, "");
-//        str = str.substring(2);
-        if (!str.isEmpty()) {
-            String idStr = id2all.getProperty(name, "");
-            if (!str.isEmpty()) {
-                return str;
+        File id2allFile = newFile("id2all.tb");
+        int id = getIdByName(name);
+        String idStr = String.format("0x%08x", id);
+        BufferedReader br;
+        try {
+            br = new BufferedReader(new FileReader(id2allFile));
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.matches(idStr + "=.*")) {
+                    return line.split("=")[1];
+                }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return null;
     }
@@ -85,11 +88,83 @@ public class Query {
      * @return null表示没有找到, 其他包含该对象所有的信息
      */
     public static String getInfoById(int id) {
-        String idString = String.format("0x%08x", id);
-        String str = id2all.getProperty(idString, "");
-        if (!str.isEmpty()) {
-            return str;
+        String idStr = String.format("0x%08x", id);
+        File id2allFile = newFile("id2all.tb");
+        BufferedReader br;
+        try {
+            br = new BufferedReader(new FileReader(id2allFile));
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.matches(idStr + "=.*")) {
+                    return line.split("=")[1];
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * @param name 传入要查询的名字
+     * @return 0表示没有找到, 其他数字代表具体id
+     */
+    public static ArrayList<String> getIdsByName(String name) {
+        File id2nameFile = newFile("id2name.tb");
+        ArrayList<String> list = new ArrayList<>();
+        ArrayList<String> idList = new ArrayList<>();
+        BufferedReader br;
+        try {
+            br = new BufferedReader(new FileReader(id2nameFile));
+            String line;
+            while ((line = br.readLine()) != null) {
+                list.add(line);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (String line : list) {
+            if (line.matches(".*=" + name)) {
+                String numStr = line.split("=")[0];
+//                return Integer.parseInt(numStr.split("=")[0], 16);
+                idList.add(numStr);
+            }
+        }
+        return idList;
+    }
+
+    /**
+     * @param name 传入要查询的名字
+     * @return null表示没有找到, 其他包含该对象所有的信息
+     */
+    public static ArrayList<String> getInfosByName(String name) {
+        File id2allFile = newFile("id2all.tb");
+        ArrayList<String> idList = getIdsByName(name);
+        ArrayList<String> infoList = new ArrayList<>();
+        ArrayList<String> list = new ArrayList<>();
+//        String idStr = String.format("0x%08x", id);
+        BufferedReader br;
+        try {
+            br = new BufferedReader(new FileReader(id2allFile));
+            String line;
+            while ((line = br.readLine()) != null) {
+                list.add(line);
+//                if (line.matches(idStr + "=.*")) {
+//                    return line.split("=")[1];
+//                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (String idStr : idList) {
+            for (String line : list) {
+                if (line.matches(idStr + "=.*")) {
+                    infoList.add(line.split("=")[1]);
+                    break;
+                }
+            }
+        }
+        return infoList;
     }
 }

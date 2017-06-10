@@ -1,16 +1,10 @@
 package com.gb.gui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-
-import java.awt.event.ActionListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class HomePage extends JFrame {
 
@@ -38,7 +32,7 @@ public class HomePage extends JFrame {
 	public HomePage() {
 		setTitle("\u9014\u9F20");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 309, 349);
+		setBounds(500, 200, 309, 349);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

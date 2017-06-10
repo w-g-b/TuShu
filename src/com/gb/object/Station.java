@@ -32,6 +32,13 @@ public class Station {
         this.isTransfer = isTransfer;
     }
 
+    public Station(String info) {
+        String str[] = info.split("[ ]+");
+        this.id = Integer.parseInt(str[0].substring(2), 16);
+        this.name = str[1];
+        this.lineId = Integer.parseInt(str[2].substring(2), 16);
+    }
+
     public int getId() {
         return id;
     }

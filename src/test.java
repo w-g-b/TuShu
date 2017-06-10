@@ -2,6 +2,8 @@ import com.gb.util.Query;
 
 public class test {
     public static void main(String[] args) {
+        Query query = new Query();
+
 //        Line line = new Line("4号线");
 //        System.out.printf("0x%08x\n", line.getId());
 //        Station station = new Station("淘金", 0x01000000, true);
@@ -16,8 +18,8 @@ public class test {
 //        SpecificShop shop = new SpecificShop("柏高", 0x01010100, 110, 5, 5, "好");
 //        System.out.printf("0x%08x\n", shop.getId());
 //        System.out.println(Query2.getInfoById(0x01010100));
-        System.out.println(Query.getInfosByName("王府井"));
-//        System.out.println(Query.getInfoById(0x01010202));
+//        System.out.println(Query3.getInfosByName("王府井"));
+//        System.out.println(Query3.getInfoById(0x01010202));
     }
 }
 

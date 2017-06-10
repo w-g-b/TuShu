@@ -1,0 +1,69 @@
+package com.gb.gui;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class HomePage extends JFrame {
+
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					HomePage frame = new HomePage();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public HomePage() {
+		setTitle("\u9014\u9F20");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 309, 349);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JButton queryButton = new JButton("\u4FE1\u606F\u67E5\u8BE2");
+		queryButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				QueryDialog dialog=new QueryDialog(HomePage.this, "–≈œ¢≤È—Ø",true);
+				dialog.setVisible(true);
+			}
+		});
+		queryButton.setBounds(79, 89, 130, 23);
+		contentPane.add(queryButton);
+		
+		JButton planButton = new JButton("\u7EBF\u8DEF\u89C4\u5212");
+		planButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		planButton.setBounds(79, 132, 130, 23);
+		contentPane.add(planButton);
+		
+		JButton modifyButton = new JButton("\u4FE1\u606F\u4FEE\u6539");
+		modifyButton.setBounds(79, 177, 130, 23);
+		contentPane.add(modifyButton);
+	}
+}

@@ -18,20 +18,26 @@ public class Query {
     }
 
     public static boolean isIdExit(int id) {
-        String idString = String.format("0x%08x", id);
+        String idStr = String.format("0x%08x", id);
         File id2nameFile = newFile("id2name.tb");
-        BufferedReader br;
+        BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader(id2nameFile));
             String line;
             while ((line = br.readLine()) != null) {
-                if (line.matches(idString + "=.*")) {
+                if (line.matches(idStr + "=.*")) {
                     return true;
                 }
             }
 
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return false;
 
@@ -166,5 +172,9 @@ public class Query {
             }
         }
         return infoList;
+    }
+
+    public static ArrayList<String> getInfosByid(int id) {
+        return null;
     }
 }

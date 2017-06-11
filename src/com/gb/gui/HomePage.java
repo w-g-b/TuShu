@@ -51,6 +51,8 @@ public class HomePage extends JFrame {
 		JButton planButton = new JButton("\u7EBF\u8DEF\u89C4\u5212");
 		planButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				PlanDialog dialog=new PlanDialog(HomePage.this, "线路规划", true);
+				dialog.setVisible(true);
 			}
 		});
 		planButton.setBounds(79, 132, 130, 23);

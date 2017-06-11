@@ -57,6 +57,12 @@ public class HomePage extends JFrame {
 		contentPane.add(planButton);
 		
 		JButton modifyButton = new JButton("\u4FE1\u606F\u4FEE\u6539");
+		modifyButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ModifyDialog dialog=new ModifyDialog(HomePage.this, "ÐÞ¸ÄÐÅÏ¢", true);
+				dialog.setVisible(true);
+			}
+		});
 		modifyButton.setBounds(79, 177, 130, 23);
 		contentPane.add(modifyButton);
 	}

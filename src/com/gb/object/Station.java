@@ -2,41 +2,32 @@ package com.gb.object;
 
 
 import com.gb.util.AllocationId;
+import com.gb.util.Query;
 
 public class Station {
     private int id;
     private String name;
     private int lineId;
+    private Line line;
     private boolean isTransfer;
 
-    //    public Station() {
-    //		id= AllocationId.newId();
-    //    }
-    public Station(String name, int lineId) {
-        this.lineId = lineId;
-        this.name = name;
-        this.id = AllocationId.newId(lineId);
-    }
 
     public Station(String name, int lineId, boolean isTransfer) {
         this.name = name;
         this.lineId = lineId;
         this.isTransfer = isTransfer;
+        this.line = new Line(new Query().getInfoById(lineId));
         this.id = AllocationId.newId(lineId);
     }
 
-    public Station(int id, String name, int lineId, boolean isTransfer) {
-        this.id = id;
-        this.name = name;
-        this.lineId = lineId;
-        this.isTransfer = isTransfer;
-    }
 
     public Station(String info) {
         String str[] = info.split("[ ]+");
         this.id = Integer.parseInt(str[0].substring(2), 16);
         this.name = str[1];
         this.lineId = Integer.parseInt(str[2].substring(2), 16);
+        this.line = new Line(new Query().getInfoById(lineId));
+
     }
 
     public int getId() {
@@ -65,5 +56,14 @@ public class Station {
 
     public void setTransfer(boolean transfer) {
         isTransfer = transfer;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    public String toShow() {
+        return "站点名：" + name + "\n" + "线路:" + line.getName() + "\n" + "是否换乘:" + (isTransfer ? "换乘" : "不换乘"+"\n\n\n");
     }
 }

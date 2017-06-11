@@ -45,4 +45,9 @@ public class ShopType {
     public void setStation(int stationId) {
         this.stationId = stationId;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

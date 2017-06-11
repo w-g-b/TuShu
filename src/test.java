@@ -1,3 +1,6 @@
+import com.gb.object.Line;
+import com.gb.object.SpecificShop;
+import com.gb.object.Station;
 import com.gb.util.Query;
 
 public class test {
@@ -20,6 +23,9 @@ public class test {
 //        System.out.println(Query2.getInfoById(0x01010100));
 //        System.out.println(Query3.getInfosByName("Íõ¸®¾®"));
 //        System.out.println(Query3.getInfoById(0x01010202));
+        System.out.println(new SpecificShop(new Query().getInfoById(0x01010101)).toShow());
+        System.out.println(new Station(new Query().getInfoById(0x01010000)).toShow());
+        System.out.println(new Line(new Query().getInfoById(0x01000000)).toShow());
     }
 }
 

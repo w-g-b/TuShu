@@ -132,6 +132,16 @@ public class Query {
         return id2allTree.get(idStr);
 
     }
+
+    public String getNameById(int id) {
+        String idStr = String.format("0x%08x", id);
+        for (String str : id2nameList) {
+            if (str.matches(idStr + "=.*")) {
+                return str.split("=")[1];
+            }
+        }
+        return "";
+    }
     public ArrayList<String> getShopInfosByStationId(int id, String shopType) {
         String idStr = String.format("0x%08x", id);
         idStr = idStr.substring(0, idStr.length() - 4);

@@ -94,4 +94,9 @@ public class SpecificShop {
                 + remarkGrade + "\n" + "¾«Ñ¡ÆÀ¼Û:" + remarkContent + "\n\n\n";
 
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

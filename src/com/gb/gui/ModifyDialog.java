@@ -28,7 +28,6 @@ public class ModifyDialog extends JDialog {
 	private JTextField textField_8;
 	private JTextField textField_9;
 	private JTextField textField_10;
-	private JTextField textField_11;
 
 	/**
 	 * Create the dialog.
@@ -37,9 +36,9 @@ public class ModifyDialog extends JDialog {
 		super(f, s, b);
 		query = new Query();
 		setTitle("\u4FEE\u6539\u4FE1\u606F");
-		setBounds(100, 100, 454, 289);
+		setBounds(100, 100, 454, 416);
 		getContentPane().setLayout(null);
-		contentPanel.setBounds(0, 0, 438, 250);
+		contentPanel.setBounds(0, 0, 438, 352);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel);
 		contentPanel.setLayout(new GridLayout(0, 2, 0, 0));
@@ -49,99 +48,6 @@ public class ModifyDialog extends JDialog {
 		JPanel panel = new JPanel();
 		contentPanel.add(panel);
 		panel.setLayout(null);
-		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(26, 10, 165, 212);
-		panel.add(panel_3);
-		panel_3.setLayout(null);
-		
-		JLabel lblNewLabel_1 = new JLabel("\u5E97\u540D:");
-		lblNewLabel_1.setBounds(10, 24, 54, 15);
-		panel_3.add(lblNewLabel_1);
-		
-		textField_6 = new JTextField();
-		textField_6.setBounds(74, 21, 66, 21);
-		panel_3.add(textField_6);
-		textField_6.setColumns(10);
-		
-		JLabel label_5 = new JLabel("\u7C7B\u578B:");
-		label_5.setBounds(10, 65, 54, 15);
-		panel_3.add(label_5);
-		
-		textField_7 = new JTextField();
-		textField_7.setBounds(74, 62, 66, 21);
-		panel_3.add(textField_7);
-		textField_7.setColumns(10);
-		
-		JLabel label_6 = new JLabel("\u9644\u8FD1\u5730\u94C1\u7AD9:");
-		label_6.setBounds(10, 105, 75, 15);
-		panel_3.add(label_6);
-		
-		textField_8 = new JTextField();
-		textField_8.setBounds(84, 102, 66, 21);
-		panel_3.add(textField_8);
-		textField_8.setColumns(10);
-		
-		JLabel label_7 = new JLabel("\u8DDD\u79BB:");
-		label_7.setBounds(10, 136, 54, 15);
-		panel_3.add(label_7);
-		
-		textField_9 = new JTextField();
-		textField_9.setBounds(74, 133, 66, 21);
-		panel_3.add(textField_9);
-		textField_9.setColumns(10);
-		
-		JLabel label_8 = new JLabel("\u8BC4\u5206:");
-		label_8.setBounds(10, 161, 54, 15);
-		panel_3.add(label_8);
-		
-		textField_10 = new JTextField();
-		textField_10.setBounds(74, 158, 66, 21);
-		panel_3.add(textField_10);
-		textField_10.setColumns(10);
-		
-		JLabel label_9 = new JLabel("\u8BC4\u4EF7:");
-		label_9.setBounds(0, 186, 54, 15);
-		panel_3.add(label_9);
-		
-		textField_11 = new JTextField();
-		textField_11.setBounds(74, 183, 66, 21);
-		panel_3.add(textField_11);
-		textField_11.setColumns(10);
-
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(26, 10, 165, 222);
-		panel.add(panel_2);
-		panel_2.setLayout(null);
-		panel_2.setVisible(false);
-		panel_2.setBounds(26, 10, 165, 222);
-
-		JLabel label = new JLabel("\u7AD9\u540D:");
-		label.setBounds(10, 30, 54, 15);
-		panel_2.add(label);
-
-		textField_3 = new JTextField();
-		textField_3.setBounds(63, 27, 66, 21);
-		panel_2.add(textField_3);
-		textField_3.setColumns(10);
-
-		JLabel label_3 = new JLabel("\u662F\u5426\u6362\u4E58:");
-		label_3.setBounds(10, 76, 54, 15);
-		panel_2.add(label_3);
-
-		textField_4 = new JTextField();
-		textField_4.setBounds(63, 73, 66, 21);
-		panel_2.add(textField_4);
-		textField_4.setColumns(10);
-
-		JLabel label_4 = new JLabel("\u6240\u5C5E\u7EBF\u8DEF:");
-		label_4.setBounds(10, 114, 54, 15);
-		panel_2.add(label_4);
-
-		textField_5 = new JTextField();
-		textField_5.setBounds(73, 111, 66, 21);
-		panel_2.add(textField_5);
-		textField_5.setColumns(10);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(26, 10, 165, 222);
@@ -174,9 +80,116 @@ public class ModifyDialog extends JDialog {
 		textField_2.setBounds(69, 118, 66, 21);
 		panel_1.add(textField_2);
 		textField_2.setColumns(10);
-		panel_1.setVisible(true);
-		panel_2.setVisible(false);
+
+		JButton button_2 = new JButton("\u4FDD\u5B58");
+		button_2.setBounds(62, 189, 93, 23);
+		panel_1.add(button_2);
+		panel_1.setVisible(false);
+
+		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(26, 10, 165, 302);
+		panel.add(panel_3);
+		panel_3.setLayout(null);
+
+		JLabel lblNewLabel_1 = new JLabel("\u5E97\u540D:");
+		lblNewLabel_1.setBounds(10, 24, 54, 15);
+		panel_3.add(lblNewLabel_1);
+
+		textField_6 = new JTextField();
+		textField_6.setBounds(74, 21, 66, 21);
+		panel_3.add(textField_6);
+		textField_6.setColumns(10);
+
+		JLabel label_5 = new JLabel("\u7C7B\u578B:");
+		label_5.setBounds(10, 65, 54, 15);
+		panel_3.add(label_5);
+
+		textField_7 = new JTextField();
+		textField_7.setBounds(74, 62, 66, 21);
+		panel_3.add(textField_7);
+		textField_7.setColumns(10);
+
+		JLabel label_6 = new JLabel("\u9644\u8FD1\u5730\u94C1\u7AD9:");
+		label_6.setBounds(10, 105, 75, 15);
+		panel_3.add(label_6);
+
+		textField_8 = new JTextField();
+		textField_8.setBounds(84, 102, 66, 21);
+		panel_3.add(textField_8);
+		textField_8.setColumns(10);
+
+		JLabel label_7 = new JLabel("\u8DDD\u79BB:");
+		label_7.setBounds(10, 136, 54, 15);
+		panel_3.add(label_7);
+
+		textField_9 = new JTextField();
+		textField_9.setBounds(74, 133, 66, 21);
+		panel_3.add(textField_9);
+		textField_9.setColumns(10);
+
+		JLabel label_8 = new JLabel("\u8BC4\u5206:");
+		label_8.setBounds(10, 161, 54, 15);
+		panel_3.add(label_8);
+
+		textField_10 = new JTextField();
+		textField_10.setBounds(74, 158, 66, 21);
+		panel_3.add(textField_10);
+		textField_10.setColumns(10);
+
+		JLabel label_9 = new JLabel("\u8BC4\u4EF7:");
+		label_9.setBounds(0, 186, 54, 15);
+		panel_3.add(label_9);
+
+		JButton button = new JButton("\u4FDD\u5B58");
+		button.setBounds(74, 269, 93, 23);
+		panel_3.add(button);
+
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(31, 211, 119, 48);
+		panel_3.add(scrollPane_1);
+
+		JTextArea textArea = new JTextArea();
+		scrollPane_1.setViewportView(textArea);
 		panel_3.setVisible(false);
+
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(26, 10, 165, 283);
+		panel.add(panel_2);
+		panel_2.setLayout(null);
+		panel_2.setVisible(false);
+		panel_2.setBounds(26, 10, 165, 222);
+
+		JLabel label = new JLabel("\u7AD9\u540D:");
+		label.setBounds(10, 30, 54, 15);
+		panel_2.add(label);
+
+		textField_3 = new JTextField();
+		textField_3.setBounds(63, 27, 66, 21);
+		panel_2.add(textField_3);
+		textField_3.setColumns(10);
+
+		JLabel label_3 = new JLabel("\u662F\u5426\u6362\u4E58:");
+		label_3.setBounds(10, 76, 54, 15);
+		panel_2.add(label_3);
+
+		textField_4 = new JTextField();
+		textField_4.setBounds(63, 73, 66, 21);
+		panel_2.add(textField_4);
+		textField_4.setColumns(10);
+
+		JLabel label_4 = new JLabel("\u6240\u5C5E\u7EBF\u8DEF:");
+		label_4.setBounds(10, 114, 54, 15);
+		panel_2.add(label_4);
+
+		textField_5 = new JTextField();
+		textField_5.setBounds(73, 111, 66, 21);
+		panel_2.add(textField_5);
+		textField_5.setColumns(10);
+
+		JButton button_1 = new JButton("\u4FDD\u5B58");
+		button_1.setBounds(62, 189, 93, 23);
+		panel_2.add(button_1);
+		panel_2.setVisible(false);
 
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("µØÌú");
 		ArrayList<String> lineInfoList = query.getInfosMatchesId("0x.{2}000000");
@@ -209,47 +222,47 @@ public class ModifyDialog extends JDialog {
 			public void valueChanged(TreeSelectionEvent e) {
 				// TODO Auto-generated method stub
 				DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-                Object nodeObject = node.getUserObject();
-                if (nodeObject instanceof Line) {
-                    textField.setText("");
-                    textField_1.setText("");
-                    textField_2.setText("");
+				Object nodeObject = node.getUserObject();
+				if (nodeObject instanceof Line) {
+					textField.setText("");
+					textField_1.setText("");
+					textField_2.setText("");
 					panel_1.setVisible(true);
 					panel_2.setVisible(false);
 					panel_3.setVisible(false);
-                    Line line = (Line) nodeObject;
-                    textField.setText(line.getName());
-                    textField_1.setText(line.getFirstStationName());
-                    textField_2.setText(line.getFinallyStationName());
-                } else if (nodeObject instanceof Station) {
-                    textField_3.setText("");
-                    textField_4.setText("");
-                    textField_5.setText("");
+					Line line = (Line) nodeObject;
+					textField.setText(line.getName());
+					textField_1.setText(line.getFirstStationName());
+					textField_2.setText(line.getFinallyStationName());
+				} else if (nodeObject instanceof Station) {
+					textField_3.setText("");
+					textField_4.setText("");
+					textField_5.setText("");
 					panel_1.setVisible(false);
 					panel_2.setVisible(true);
 					panel_3.setVisible(false);
-                    Station station = (Station) nodeObject;
-                    textField_3.setText(station.getName());
-                    textField_4.setText(station.getLine().getName());
-                    textField_5.setText(station.isTransfer()+"");
+					Station station = (Station) nodeObject;
+					textField_3.setText(station.getName());
+					textField_4.setText(station.getLine().getName());
+					textField_5.setText(station.isTransfer()?"»»³Ë":"²»»»³Ë");
 				} else if (nodeObject instanceof SpecificShop) {
-                    textField_6.setText("");
-//                    textField_7.setText(shop.getName());
-                    textField_8.setText("");
-                    textField_9.setText("");
-                    textField_10.setText("");
-                    textField_11.setText("");
+					textField_6.setText("");
+					// textField_7.setText(shop.getName());
+					textField_8.setText("");
+					textField_9.setText("");
+					textField_10.setText("");
+					textArea.setText("");
 					panel_1.setVisible(false);
 					panel_2.setVisible(false);
 					panel_3.setVisible(true);
-                    SpecificShop shop = (SpecificShop) nodeObject;
-                    textField_6.setText(shop.getName());
-//                    textField_7.setText(shop.getName());
-                    textField_8.setText(shop.getStation().getName());
-                    textField_9.setText(shop.getDistanceToStation()+"");
-                    textField_10.setText(shop.getRemarkGrade()+"");
-                    textField_11.setText(shop.getRemarkContent());
-                }
+					SpecificShop shop = (SpecificShop) nodeObject;
+					textField_6.setText(shop.getName());
+					// textField_7.setText(shop.getName());
+					textField_8.setText(shop.getStation().getName());
+					textField_9.setText(shop.getDistanceToStation() + "");
+					textField_10.setText(shop.getRemarkGrade() + "");
+					textArea.setText(shop.getRemarkContent());
+				}
 
 			}
 		});

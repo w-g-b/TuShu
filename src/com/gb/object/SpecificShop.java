@@ -38,7 +38,7 @@ public class SpecificShop {
         this.id = Integer.parseInt(str[0].substring(2), 16);
         this.name = str[1];
         this.shopTypeId = Integer.parseInt(str[2].substring(2), 16);
-        this.station = new Station(new Query().getInfoById(shopTypeId & 0xffff0000));
+        this.station = new Station(Query.getInfoById(shopTypeId & 0xffff0000));
         this.distanceToStation = Integer.parseInt(str[3]);
         this.remarkGrade = Integer.parseInt(str[4]);
         this.remarkContent = str[5];

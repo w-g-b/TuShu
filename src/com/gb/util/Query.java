@@ -9,17 +9,17 @@ import java.util.TreeMap;
  * Created by Administrator on 2017/6/10.
  */
 public class Query {
-    private ArrayList<String> id2nameList;
-    private TreeMap<String, String> id2allTree;
+    private static ArrayList<String> id2nameList;
+    private static TreeMap<String, String> id2allTree;
 
-    public Query() {
+    static {
         initCollection();
 //        System.out.println(id2nameList + "\n" + id2nameList.size());
 //        System.out.println((id2allTree) + "\n" + id2allTree.size());
     }
 
 
-    private void initCollection() {
+    private static void initCollection() {
         id2nameList = new ArrayList<>();
         id2allTree = new TreeMap<>();
         File dir = new File("info");
@@ -66,7 +66,7 @@ public class Query {
      * @param id 传入id值
      * @return false表示id值不存在，true表示id值已存在
      */
-    public boolean isIdExit(int id) {
+    public static boolean isIdExit(int id) {
         String idStr = String.format("0x%08x", id);
         for (String str : id2nameList) {
             if (str.matches(idStr + "=.*")) {
@@ -80,7 +80,7 @@ public class Query {
      * @param name 传入要查询的名字
      * @return 0表示没有找到, 其他数字代表具体id
      */
-    public int getIdByName(String name) {
+    public static int getIdByName(String name) {
         for (String str : id2nameList) {
             if (str.matches(".*=" + name)) {
                 String numStr = str.substring(2);
@@ -90,7 +90,7 @@ public class Query {
         return 0;
     }
 
-    public int getStationIdByName(String name) {
+    public static int getStationIdByName(String name) {
         for (String str : id2nameList) {
             if (str.matches(".*0000=" + name)) {
                 String numStr = str.substring(2);
@@ -103,7 +103,7 @@ public class Query {
      * @param name 传入要查询的名字
      * @return 0表示没有找到, 其他数字代表具体id
      */
-    private ArrayList<String> getIdsByName(String name) {
+    private static ArrayList<String> getIdsByName(String name) {
         ArrayList<String> idList = new ArrayList<>();
         for (String line : id2nameList) {
             if (line.matches(".*=" + name)) {
@@ -118,7 +118,7 @@ public class Query {
      * @param name 传入要查询的名字
      * @return null表示没有找到, 其他包含该对象所有的信息
      */
-    public ArrayList<String> getInfosByName(String name) {
+    public static ArrayList<String> getInfosByName(String name) {
         ArrayList<String> idList = getIdsByName(name);
         ArrayList<String> infoList = new ArrayList<>();
 //        String idStr = String.format("0x%08x", id);
@@ -128,13 +128,13 @@ public class Query {
         return infoList;
     }
 
-    public String getInfoById(int id) {
+    public static String getInfoById(int id) {
         String idStr = String.format("0x%08x", id);
         return id2allTree.get(idStr);
 
     }
 
-    public String getNameById(int id) {
+    public static String getNameById(int id) {
         String idStr = String.format("0x%08x", id);
         for (String str : id2nameList) {
             if (str.matches(idStr + "=.*")) {
@@ -143,7 +143,7 @@ public class Query {
         }
         return "";
     }
-    public ArrayList<String> getShopInfosByStationId(int id, String shopType) {
+    public static ArrayList<String> getShopInfosByStationId(int id, String shopType) {
         String idStr = String.format("0x%08x", id);
         idStr = idStr.substring(0, idStr.length() - 4);
         ArrayList<String> idList = new ArrayList<>();
@@ -162,7 +162,7 @@ public class Query {
         return shopInfosList;
     }
 
-    public ArrayList<String> getInfosMatchesId(String regexId) {
+    public static ArrayList<String> getInfosMatchesId(String regexId) {
         ArrayList<String> idList = new ArrayList<>();
         ArrayList<String> infoList = new ArrayList<>();
         for (String str : id2nameList) {
@@ -176,7 +176,7 @@ public class Query {
         return infoList;
     }
 
-    public void modifyInfo(int id,String newInfo) {
+    public static void modifyInfo(int id,String newInfo) {
         String idStr = String.format("0x%08x", id);
         id2allTree.remove(idStr);
         for (String str : id2nameList) {

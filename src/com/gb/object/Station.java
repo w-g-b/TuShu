@@ -16,7 +16,7 @@ public class Station {
         this.name = name;
         this.lineId = lineId;
         this.isTransfer = isTransfer;
-        this.line = new Line(new Query().getInfoById(lineId));
+        this.line = new Line(Query.getInfoById(lineId));
         this.id = AllocationId.newId(lineId);
     }
 
@@ -26,7 +26,7 @@ public class Station {
         this.id = Integer.parseInt(str[0].substring(2), 16);
         this.name = str[1];
         this.lineId = Integer.parseInt(str[2].substring(2), 16);
-        this.line = new Line(new Query().getInfoById(lineId));
+        this.line = new Line(Query.getInfoById(lineId));
 
     }
 

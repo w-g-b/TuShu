@@ -16,11 +16,10 @@ public class Line {
 //	}
     public Line(String name, int firstStationId, int finallyStationId) {
         this.name = name;
-        Query query = new Query();
         this.firstStationId = firstStationId;
-        this.firstStationName = query.getNameById(firstStationId);
+        this.firstStationName = Query.getNameById(firstStationId);
         this.finallyStationId = finallyStationId;
-        this.finallyStationName = query.getNameById(finallyStationId);
+        this.finallyStationName = Query.getNameById(finallyStationId);
 //        this.finallStation = new Station(new Query().getInfoById(finallyStationId));
         this.id = AllocationId.newId(AllocationId.LINE_TYPE);
     }
@@ -29,11 +28,10 @@ public class Line {
         String str[] = info.split("[ ]+");
         this.id = Integer.parseInt(str[0].substring(2), 16);
         this.name = str[1];
-        Query query = new Query();
         this.firstStationId = Integer.parseInt(str[2].substring(2), 16);
-        this.firstStationName = query.getNameById(firstStationId);
+        this.firstStationName = Query.getNameById(firstStationId);
         this.finallyStationId = Integer.parseInt(str[3].substring(2), 16);
-        this.finallyStationName = query.getNameById(finallyStationId);
+        this.finallyStationName = Query.getNameById(finallyStationId);
 
     }
 

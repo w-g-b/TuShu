@@ -27,6 +27,7 @@ public class Station {
         this.name = str[1];
         this.lineId = Integer.parseInt(str[2].substring(2), 16);
         this.line = new Line(Query.getInfoById(lineId));
+        this.isTransfer=str[3].equals("true")?true:false;
 
     }
 

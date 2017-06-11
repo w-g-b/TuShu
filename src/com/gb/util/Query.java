@@ -1,15 +1,13 @@
 package com.gb.util;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Created by Administrator on 2017/6/10.
  */
 public class Query {
-    private static ArrayList<String> id2nameList;
+    private static Set<String> id2nameList;
     private static TreeMap<String, String> id2allTree;
 
     static {
@@ -20,7 +18,7 @@ public class Query {
 
 
     private static void initCollection() {
-        id2nameList = new ArrayList<>();
+        id2nameList = new TreeSet<>();
         id2allTree = new TreeMap<>();
         File dir = new File("info");
         if (!dir.exists()) {
@@ -99,6 +97,15 @@ public class Query {
         }
         return 0;
     }
+//    public static int getStationIdByName(String name,String regex) {
+//        for (String str : id2nameList) {
+//            if (str.matches(".*0000=" + name)) {
+//                String numStr = str.substring(2);
+//                return Integer.parseInt(numStr.split("=")[0], 16);
+//            }
+//        }
+//        return 0;
+//    }
     /**
      * @param name 传入要查询的名字
      * @return 0表示没有找到, 其他数字代表具体id
@@ -217,5 +224,4 @@ public class Query {
             }
         }
     }
-
 }

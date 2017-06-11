@@ -1,24 +1,17 @@
 package com.gb.gui;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import com.gb.object.Line;
+import com.gb.object.SpecificShop;
+import com.gb.object.Station;
+import com.gb.util.Query;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-
-import com.gb.object.SpecificShop;
-import com.gb.util.Query;
-
-import java.awt.GridLayout;
-import javax.swing.JScrollPane;
-import javax.swing.JTree;
-import javax.swing.JLabel;
+import java.awt.*;
+import java.util.ArrayList;
 
 public class ModifyDialog extends JDialog {
 
@@ -65,19 +58,26 @@ public class ModifyDialog extends JDialog {
 		panel_2.setVisible(false);
 
 		DefaultMutableTreeNode root=new DefaultMutableTreeNode("地铁");
-		while (query.matchesId()) {
-			
+		ArrayList<String> lineInfoList = query.getInfosMatchesId("0x.{2}000000");
+		for (String lineInfo : lineInfoList) {
+			Line line=new Line(lineInfo);
+			DefaultMutableTreeNode lineNode = new DefaultMutableTreeNode(line);
+			String lineIdStr = String.format("0x%08x", line.getId());
+			ArrayList<String> StationInfoList = query.getInfosMatchesId(lineIdStr.substring(0, 4) + "(0[^0]|[^0]0)0000");
+			for (String stationInfo : StationInfoList) {
+				Station station = new Station(stationInfo);
+				DefaultMutableTreeNode stationNode = new DefaultMutableTreeNode(station);
+				String stationIdStr = String.format("0x%08x", station.getId());
+				ArrayList<String> shopInfoList = query.getInfosMatchesId(stationIdStr.substring(0, 6) + ".{2}([0][^0]|[^0][0])");
+				for (String shopInfo : shopInfoList) {
+					SpecificShop shop = new SpecificShop(shopInfo);
+					DefaultMutableTreeNode shopNode = new DefaultMutableTreeNode(shop);
+					stationNode.add(shopNode);
+				}
+				lineNode.add(stationNode);
+			}
+			root.add(lineNode);
 		}
-		DefaultMutableTreeNode line1=new DefaultMutableTreeNode("1号线");
-		DefaultMutableTreeNode shop=new DefaultMutableTreeNode(new SpecificShop("0x01010101 七天连锁酒店 0x01010100 800 95 好地方"));
-		line1.add(shop);
-		DefaultMutableTreeNode line2=new DefaultMutableTreeNode("2号线");
-		DefaultMutableTreeNode line3=new DefaultMutableTreeNode("3号线");
-		DefaultMutableTreeNode line4=new DefaultMutableTreeNode("4号线");
-		root.add(line1);
-		root.add(line2);
-		root.add(line3);
-		root.add(line4);
 //		for(String str:query.getIdByName("1"))
 		JTree tree = new JTree(root);
 		tree.addTreeSelectionListener(new TreeSelectionListener() {

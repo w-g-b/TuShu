@@ -161,4 +161,18 @@ public class Query {
         return shopInfosList;
     }
 
+    public ArrayList<String> getInfosMatchesId(String regexId) {
+        ArrayList<String> idList = new ArrayList<>();
+        ArrayList<String> infoList = new ArrayList<>();
+        for (String str : id2nameList) {
+            if (str.matches(regexId + "=.*")) {
+                idList.add(str.split("=")[0]);
+            }
+        }
+        for (String idStr : idList) {
+            infoList.add(id2allTree.get(idStr));
+        }
+        return infoList;
+    }
+
 }

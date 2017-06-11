@@ -44,8 +44,18 @@ public class ModifyDialog extends JDialog {
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(26, 10, 165, 222);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("\u7EBF\u8DEF\u540D");
+		lblNewLabel.setBounds(20, 10, 54, 15);
+		panel_1.add(lblNewLabel);
+		panel_1.setVisible(true);
+		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(9, 10, 165, 222);
+		panel_2.setBounds(26, 10, 165, 222);
 		panel.add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -53,18 +63,11 @@ public class ModifyDialog extends JDialog {
 		label.setBounds(20, 21, 54, 15);
 		panel_2.add(label);
 		panel_2.setVisible(false);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(9, 10, 165, 212);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("\u5730\u94C1\u540D");
-		lblNewLabel.setBounds(10, 10, 54, 15);
-		panel_1.add(lblNewLabel);
-		panel_1.setVisible(true);
 
 		DefaultMutableTreeNode root=new DefaultMutableTreeNode("地铁");
+		while (query.matchesId()) {
+			
+		}
 		DefaultMutableTreeNode line1=new DefaultMutableTreeNode("1号线");
 		DefaultMutableTreeNode shop=new DefaultMutableTreeNode(new SpecificShop("0x01010101 七天连锁酒店 0x01010100 800 95 好地方"));
 		line1.add(shop);

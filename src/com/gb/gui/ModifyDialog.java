@@ -50,151 +50,151 @@ public class ModifyDialog extends JDialog {
 		JPanel panel = new JPanel();
 		contentPanel.add(panel);
 		panel.setLayout(null);
-										
-												JPanel panel_3 = new JPanel();
-												panel_3.setBounds(26, 10, 178, 322);
-												panel.add(panel_3);
-												panel_3.setLayout(null);
-												
-														JLabel lblNewLabel_1 = new JLabel("\u5E97\u540D:");
-														lblNewLabel_1.setBounds(20, 24, 54, 15);
-														panel_3.add(lblNewLabel_1);
-														
-																textField_6 = new JTextField();
-																textField_6.setBounds(74, 21, 76, 21);
-																panel_3.add(textField_6);
-																textField_6.setColumns(10);
-																
-																		JLabel label_5 = new JLabel("\u7C7B\u578B:");
-																		label_5.setBounds(20, 55, 54, 15);
-																		panel_3.add(label_5);
-																		
-																				textField_7 = new JTextField();
-																				textField_7.setBounds(74, 52, 76, 21);
-																				panel_3.add(textField_7);
-																				textField_7.setColumns(10);
-																				
-																						JLabel label_6 = new JLabel("\u9644\u8FD1\u7AD9\u70B9:");
-																						label_6.setBounds(10, 86, 75, 15);
-																						panel_3.add(label_6);
-																						
-																								textField_8 = new JTextField();
-																								textField_8.setBounds(74, 83, 76, 21);
-																								panel_3.add(textField_8);
-																								textField_8.setColumns(10);
-																								
-																										JLabel label_7 = new JLabel("\u8DDD\u79BB:");
-																										label_7.setBounds(20, 117, 54, 15);
-																										panel_3.add(label_7);
-																										
-																												textField_9 = new JTextField();
-																												textField_9.setBounds(74, 114, 76, 21);
-																												panel_3.add(textField_9);
-																												textField_9.setColumns(10);
-																												
-																														JLabel label_8 = new JLabel("\u8BC4\u5206:");
-																														label_8.setBounds(20, 148, 54, 15);
-																														panel_3.add(label_8);
-																														
-																																textField_10 = new JTextField();
-																																textField_10.setBounds(74, 145, 76, 21);
-																																panel_3.add(textField_10);
-																																textField_10.setColumns(10);
-																																
-																																		JLabel label_9 = new JLabel("\u8BC4\u4EF7:");
-																																		label_9.setBounds(20, 173, 54, 15);
-																																		panel_3.add(label_9);
-																																		
-																																				JButton button = new JButton("\u4FDD\u5B58");
-																																				button.addActionListener(new ActionListener() {
-																																					public void actionPerformed(ActionEvent e) {
-																																					}
-																																				});
-																																				button.setBounds(40, 289, 93, 23);
-																																				panel_3.add(button);
-																																				
-																																						JScrollPane scrollPane_1 = new JScrollPane();
-																																						scrollPane_1.setBounds(20, 198, 140, 81);
-																																						panel_3.add(scrollPane_1);
-																																						
-																																								JTextArea textArea = new JTextArea();
-																																								scrollPane_1.setViewportView(textArea);
-																																								panel_3.setVisible(false);
-								
-										JPanel panel_2 = new JPanel();
-										panel_2.setBounds(26, 60, 178, 222);
-										panel.add(panel_2);
-										panel_2.setLayout(null);
-										panel_2.setVisible(false);
-										
-												JLabel label = new JLabel("\u7AD9\u540D:");
-												label.setBounds(20, 37, 54, 15);
-												panel_2.add(label);
-												
-														textField_3 = new JTextField();
-														textField_3.setBounds(71, 34, 84, 21);
-														panel_2.add(textField_3);
-														textField_3.setColumns(10);
-														
-																JLabel label_3 = new JLabel("\u662F\u5426\u6362\u4E58:");
-																label_3.setBounds(10, 109, 54, 18);
-																panel_2.add(label_3);
-																
-																		textField_4 = new JTextField();
-																		textField_4.setBounds(71, 71, 84, 21);
-																		panel_2.add(textField_4);
-																		textField_4.setColumns(10);
-																		
-																				JLabel label_4 = new JLabel("\u6240\u5C5E\u7EBF\u8DEF:");
-																				label_4.setBounds(10, 74, 54, 15);
-																				panel_2.add(label_4);
-																				
-																						textField_5 = new JTextField();
-																						textField_5.setBounds(71, 108, 84, 21);
-																						panel_2.add(textField_5);
-																						textField_5.setColumns(10);
-																						
-																								JButton button_1 = new JButton("\u4FDD\u5B58");
-																								button_1.setBounds(37, 149, 93, 23);
-																								panel_2.add(button_1);
-																								panel_2.setVisible(false);
-						
-								JPanel panel_1 = new JPanel();
-								panel_1.setBounds(26, 60, 178, 222);
-								panel.add(panel_1);
-								panel_1.setLayout(null);
-								
-										JLabel lblNewLabel = new JLabel("\u7EBF\u8DEF\u540D:");
-										lblNewLabel.setBounds(10, 38, 54, 15);
-										panel_1.add(lblNewLabel);
-										
-												textField = new JTextField();
-												textField.setBounds(69, 35, 86, 21);
-												panel_1.add(textField);
-												textField.setColumns(10);
-												
-														JLabel label_1 = new JLabel("\u8D77\u70B9\u7AD9:");
-														label_1.setBounds(10, 79, 54, 15);
-														panel_1.add(label_1);
-														
-																textField_1 = new JTextField();
-																textField_1.setBounds(69, 76, 86, 21);
-																panel_1.add(textField_1);
-																textField_1.setColumns(10);
-																
-																		JLabel label_2 = new JLabel("\u7EC8\u70B9\u7AD9:");
-																		label_2.setBounds(10, 121, 54, 15);
-																		panel_1.add(label_2);
-																		
-																				textField_2 = new JTextField();
-																				textField_2.setBounds(69, 118, 86, 21);
-																				panel_1.add(textField_2);
-																				textField_2.setColumns(10);
-																				
-																						JButton button_2 = new JButton("\u4FDD\u5B58");
-																						button_2.setBounds(42, 164, 93, 23);
-																						panel_1.add(button_2);
-																						panel_1.setVisible(false);
+
+		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(26, 10, 178, 322);
+		panel.add(panel_3);
+		panel_3.setLayout(null);
+
+		JLabel lblNewLabel_1 = new JLabel("\u5E97\u540D:");
+		lblNewLabel_1.setBounds(20, 24, 54, 15);
+		panel_3.add(lblNewLabel_1);
+
+		textField_6 = new JTextField();
+		textField_6.setBounds(74, 21, 76, 21);
+		panel_3.add(textField_6);
+		textField_6.setColumns(10);
+
+		JLabel label_5 = new JLabel("\u7C7B\u578B:");
+		label_5.setBounds(20, 55, 54, 15);
+		panel_3.add(label_5);
+
+		textField_7 = new JTextField();
+		textField_7.setBounds(74, 52, 76, 21);
+		panel_3.add(textField_7);
+		textField_7.setColumns(10);
+
+		JLabel label_6 = new JLabel("\u9644\u8FD1\u7AD9\u70B9:");
+		label_6.setBounds(10, 86, 75, 15);
+		panel_3.add(label_6);
+
+		textField_8 = new JTextField();
+		textField_8.setBounds(74, 83, 76, 21);
+		panel_3.add(textField_8);
+		textField_8.setColumns(10);
+
+		JLabel label_7 = new JLabel("\u8DDD\u79BB:");
+		label_7.setBounds(20, 117, 54, 15);
+		panel_3.add(label_7);
+
+		textField_9 = new JTextField();
+		textField_9.setBounds(74, 114, 76, 21);
+		panel_3.add(textField_9);
+		textField_9.setColumns(10);
+
+		JLabel label_8 = new JLabel("\u8BC4\u5206:");
+		label_8.setBounds(20, 148, 54, 15);
+		panel_3.add(label_8);
+
+		textField_10 = new JTextField();
+		textField_10.setBounds(74, 145, 76, 21);
+		panel_3.add(textField_10);
+		textField_10.setColumns(10);
+
+		JLabel label_9 = new JLabel("\u8BC4\u4EF7:");
+		label_9.setBounds(20, 173, 54, 15);
+		panel_3.add(label_9);
+
+		JButton button = new JButton("\u4FDD\u5B58");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		button.setBounds(40, 289, 93, 23);
+		panel_3.add(button);
+
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(20, 198, 140, 81);
+		panel_3.add(scrollPane_1);
+
+		JTextArea textArea = new JTextArea();
+		scrollPane_1.setViewportView(textArea);
+		panel_3.setVisible(false);
+
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(26, 60, 178, 222);
+		panel.add(panel_2);
+		panel_2.setLayout(null);
+		panel_2.setVisible(false);
+
+		JLabel label = new JLabel("\u7AD9\u540D:");
+		label.setBounds(20, 37, 54, 15);
+		panel_2.add(label);
+
+		textField_3 = new JTextField();
+		textField_3.setBounds(71, 34, 84, 21);
+		panel_2.add(textField_3);
+		textField_3.setColumns(10);
+
+		JLabel label_3 = new JLabel("\u662F\u5426\u6362\u4E58:");
+		label_3.setBounds(10, 109, 54, 18);
+		panel_2.add(label_3);
+
+		textField_4 = new JTextField();
+		textField_4.setBounds(71, 71, 84, 21);
+		panel_2.add(textField_4);
+		textField_4.setColumns(10);
+
+		JLabel label_4 = new JLabel("\u6240\u5C5E\u7EBF\u8DEF:");
+		label_4.setBounds(10, 74, 54, 15);
+		panel_2.add(label_4);
+
+		textField_5 = new JTextField();
+		textField_5.setBounds(71, 108, 84, 21);
+		panel_2.add(textField_5);
+		textField_5.setColumns(10);
+
+		JButton button_1 = new JButton("\u4FDD\u5B58");
+		button_1.setBounds(37, 149, 93, 23);
+		panel_2.add(button_1);
+		panel_2.setVisible(false);
+
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(26, 60, 178, 222);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+
+		JLabel lblNewLabel = new JLabel("\u7EBF\u8DEF\u540D:");
+		lblNewLabel.setBounds(10, 38, 54, 15);
+		panel_1.add(lblNewLabel);
+
+		textField = new JTextField();
+		textField.setBounds(69, 35, 86, 21);
+		panel_1.add(textField);
+		textField.setColumns(10);
+
+		JLabel label_1 = new JLabel("\u8D77\u70B9\u7AD9:");
+		label_1.setBounds(10, 79, 54, 15);
+		panel_1.add(label_1);
+
+		textField_1 = new JTextField();
+		textField_1.setBounds(69, 76, 86, 21);
+		panel_1.add(textField_1);
+		textField_1.setColumns(10);
+
+		JLabel label_2 = new JLabel("\u7EC8\u70B9\u7AD9:");
+		label_2.setBounds(10, 121, 54, 15);
+		panel_1.add(label_2);
+
+		textField_2 = new JTextField();
+		textField_2.setBounds(69, 118, 86, 21);
+		panel_1.add(textField_2);
+		textField_2.setColumns(10);
+
+		JButton button_2 = new JButton("\u4FDD\u5B58");
+		button_2.setBounds(42, 164, 93, 23);
+		panel_1.add(button_2);
+		panel_1.setVisible(false);
 
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("µØÌú");
 		ArrayList<String> lineInfoList = query.getInfosMatchesId("0x.{2}000000");

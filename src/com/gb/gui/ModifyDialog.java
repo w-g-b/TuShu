@@ -175,6 +175,8 @@ public class ModifyDialog extends JDialog {
 		panel_1.add(textField_2);
 		textField_2.setColumns(10);
 		panel_1.setVisible(true);
+		panel_2.setVisible(false);
+		panel_3.setVisible(false);
 
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("µØÌú");
 		ArrayList<String> lineInfoList = query.getInfosMatchesId("0x.{2}000000");
@@ -207,20 +209,47 @@ public class ModifyDialog extends JDialog {
 			public void valueChanged(TreeSelectionEvent e) {
 				// TODO Auto-generated method stub
 				DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-				if (node.getUserObject() instanceof Line) {
+                Object nodeObject = node.getUserObject();
+                if (nodeObject instanceof Line) {
+                    textField.setText("");
+                    textField_1.setText("");
+                    textField_2.setText("");
 					panel_1.setVisible(true);
 					panel_2.setVisible(false);
 					panel_3.setVisible(false);
-				} else if (node.getUserObject() instanceof Station) {
+                    Line line = (Line) nodeObject;
+                    textField.setText(line.getName());
+                    textField_1.setText(line.getFirstStationName());
+                    textField_2.setText(line.getFinallyStationName());
+                } else if (nodeObject instanceof Station) {
+                    textField_3.setText("");
+                    textField_4.setText("");
+                    textField_5.setText("");
 					panel_1.setVisible(false);
 					panel_2.setVisible(true);
 					panel_3.setVisible(false);
-				} else if (node.getUserObject() instanceof SpecificShop) {
+                    Station station = (Station) nodeObject;
+                    textField_3.setText(station.getName());
+                    textField_4.setText(station.getLine().getName());
+                    textField_5.setText(station.isTransfer()+"");
+				} else if (nodeObject instanceof SpecificShop) {
+                    textField_6.setText("");
+//                    textField_7.setText(shop.getName());
+                    textField_8.setText("");
+                    textField_9.setText("");
+                    textField_10.setText("");
+                    textField_11.setText("");
 					panel_1.setVisible(false);
 					panel_2.setVisible(false);
 					panel_3.setVisible(true);
-
-				}
+                    SpecificShop shop = (SpecificShop) nodeObject;
+                    textField_6.setText(shop.getName());
+//                    textField_7.setText(shop.getName());
+                    textField_8.setText(shop.getStation().getName());
+                    textField_9.setText(shop.getDistanceToStation()+"");
+                    textField_10.setText(shop.getRemarkGrade()+"");
+                    textField_11.setText(shop.getRemarkContent());
+                }
 
 			}
 		});

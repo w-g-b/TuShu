@@ -95,6 +95,14 @@ public class SpecificShop {
 
     }
 
+    public Station getStation() {
+        return station;
+    }
+
+    public void setStation(Station station) {
+        this.station = station;
+    }
+
     @Override
     public String toString() {
         return name;

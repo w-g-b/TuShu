@@ -58,6 +58,14 @@ public class Station {
         isTransfer = transfer;
     }
 
+    public Line getLine() {
+        return line;
+    }
+
+    public void setLine(Line line) {
+        this.line = line;
+    }
+
     @Override
     public String toString() {
         return name;

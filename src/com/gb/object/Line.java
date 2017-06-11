@@ -9,7 +9,7 @@ public class Line {
     private int firstStationId;
     private int finallyStationId;
     private String firstStationName;
-    private String finallStationName;
+    private String finallyStationName;
 
     //	public Line(){
 //		this.id=AllocationId.newId(AllocationId.LINE_TYPE);
@@ -20,7 +20,7 @@ public class Line {
         this.firstStationId = firstStationId;
         this.firstStationName = query.getNameById(firstStationId);
         this.finallyStationId = finallyStationId;
-        this.finallStationName = query.getNameById(finallyStationId);
+        this.finallyStationName = query.getNameById(finallyStationId);
 //        this.finallStation = new Station(new Query().getInfoById(finallyStationId));
         this.id = AllocationId.newId(AllocationId.LINE_TYPE);
     }
@@ -33,7 +33,7 @@ public class Line {
         this.firstStationId = Integer.parseInt(str[2].substring(2), 16);
         this.firstStationName = query.getNameById(firstStationId);
         this.finallyStationId = Integer.parseInt(str[3].substring(2), 16);
-        this.finallStationName = query.getNameById(finallyStationId);
+        this.finallyStationName = query.getNameById(finallyStationId);
 
     }
 
@@ -65,13 +65,29 @@ public class Line {
         this.finallyStationId = finallyStationId;
     }
 
+    public String getFirstStationName() {
+        return firstStationName;
+    }
+
+    public void setFirstStationName(String firstStationName) {
+        this.firstStationName = firstStationName;
+    }
+
+    public String getFinallyStationName() {
+        return finallyStationName;
+    }
+
+    public void setFinallyStationName(String finallyStationName) {
+        this.finallyStationName = finallyStationName;
+    }
+
     @Override
     public String toString() {
         return name;
     }
 
     public String toShow() {
-        return "线路名:" + name + "\n" + "起始站:" + firstStationName + "\n终点站:" + finallStationName+"\n\n\n";
+        return "线路名:" + name + "\n" + "起始站:" + firstStationName + "\n终点站:" + finallyStationName +"\n\n\n";
 
     }
 

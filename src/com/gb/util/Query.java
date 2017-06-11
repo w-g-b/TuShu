@@ -2,6 +2,7 @@ package com.gb.util;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -173,6 +174,48 @@ public class Query {
             infoList.add(id2allTree.get(idStr));
         }
         return infoList;
+    }
+
+    public void modifyInfo(int id,String newInfo) {
+        String idStr = String.format("0x%08x", id);
+        id2allTree.remove(idStr);
+        for (String str : id2nameList) {
+            if (str.matches(idStr + "=.*")) {
+                id2nameList.remove(str);
+                break;
+            }
+        }
+        String[] split = newInfo.split(" ");
+        id2nameList.add(split[0] + "=" + split[1]);
+        id2allTree.put(split[0], newInfo);
+        File dir = new File("info");
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+        File id2nameFile = new File(dir,"id2name.tb");
+        File id2allFile = new File(dir,"id2all.tb");
+        PrintWriter pw1=null;
+        PrintWriter pw2=null;
+        try {
+            pw1 = new PrintWriter(new FileWriter(id2nameFile),true);
+            pw2 = new PrintWriter(new FileWriter(id2allFile),true);
+            for (String line : id2nameList) {
+               pw1.println(line);
+            }
+            Set<String>set=id2allTree.keySet();
+            for (String line : set) {
+                pw2.println(line + "=" + id2allTree.get(line));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if (pw1 != null) {
+                pw1.close();
+            }
+            if (pw2 != null) {
+                pw2.close();
+            }
+        }
     }
 
 }

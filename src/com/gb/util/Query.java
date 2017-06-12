@@ -106,6 +106,7 @@ public class Query {
 //        }
 //        return 0;
 //    }
+
     /**
      * @param name 传入要查询的名字
      * @return 0表示没有找到, 其他数字代表具体id
@@ -145,6 +146,7 @@ public class Query {
         }
         return idList;
     }
+
     public static ArrayList<String> getShopInfosByName(String name) {
 
         ArrayList<String> idList = getShopIdsByName(name);
@@ -171,6 +173,7 @@ public class Query {
         }
         return "";
     }
+
     public static ArrayList<String> getShopInfosByStationId(int id, String shopType) {
         String idStr = String.format("0x%08x", id);
         idStr = idStr.substring(0, idStr.length() - 4);
@@ -204,7 +207,7 @@ public class Query {
         return infoList;
     }
 
-    public static void modifyInfo(int id,String newInfo) {
+    public static void modifyInfo(int id, String newInfo) {
         String idStr = String.format("0x%08x", id);
         id2allTree.remove(idStr);
         for (String str : id2nameList) {
@@ -220,23 +223,23 @@ public class Query {
         if (!dir.exists()) {
             dir.mkdir();
         }
-        File id2nameFile = new File(dir,"id2name.tb");
-        File id2allFile = new File(dir,"id2all.tb");
-        PrintWriter pw1=null;
-        PrintWriter pw2=null;
+        File id2nameFile = new File(dir, "id2name.tb");
+        File id2allFile = new File(dir, "id2all.tb");
+        PrintWriter pw1 = null;
+        PrintWriter pw2 = null;
         try {
-            pw1 = new PrintWriter(new FileWriter(id2nameFile),true);
-            pw2 = new PrintWriter(new FileWriter(id2allFile),true);
+            pw1 = new PrintWriter(new FileWriter(id2nameFile), true);
+            pw2 = new PrintWriter(new FileWriter(id2allFile), true);
             for (String line : id2nameList) {
-               pw1.println(line);
+                pw1.println(line);
             }
-            Set<String>set=id2allTree.keySet();
+            Set<String> set = id2allTree.keySet();
             for (String line : set) {
                 pw2.println(line + "=" + id2allTree.get(line));
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             if (pw1 != null) {
                 pw1.close();
             }
@@ -245,4 +248,11 @@ public class Query {
             }
         }
     }
+
+    public static boolean isLineStation(int lineId, int statinoId) {
+        String lindIdPref = String.format("0x%08x", lineId).substring(0, 6);
+        String stationIdPref = String.format("0x%08x", statinoId).substring(0, 6);
+        return lindIdPref.equals(stationIdPref);
+    }
+
 }

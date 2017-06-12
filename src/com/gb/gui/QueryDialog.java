@@ -65,7 +65,7 @@ public class QueryDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				textArea.setText("");
 				String shopName = textField_1.getText();
-				ArrayList<String> infoList = Query.getInfosByName(shopName);
+				ArrayList<String> infoList = Query.getShopInfosByName(shopName);
 				for (String info : infoList) {
 					// TODO 存在问题，没有判断是否是店名
 					textArea.append(new SpecificShop(info).toShow());
@@ -197,8 +197,8 @@ public class QueryDialog extends JDialog {
 			@Override
 			public void changedUpdate(DocumentEvent e) {
 				String str = textField_1.getText();
-				int id = Query.getStationIdByName(str);
-				if (id == 0 && !str.isEmpty()) {
+				ArrayList<String> infoList = Query.getShopIdsByName(str);
+				if (infoList.size() == 0 && !str.isEmpty()) {
 					// panel.add(label);
 					label_5.setVisible(true);
 				} else {

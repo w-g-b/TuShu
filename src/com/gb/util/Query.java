@@ -135,6 +135,27 @@ public class Query {
         return infoList;
     }
 
+    public static ArrayList<String> getShopIdsByName(String name) {
+        ArrayList<String> idList = new ArrayList<>();
+        for (String line : id2nameList) {
+            if (line.matches(".*([0][^0]|[^0][0])=" + name)) {
+//                return Integer.parseInt(numStr.split("=")[0], 16);
+                idList.add(line.split("=")[0]);
+            }
+        }
+        return idList;
+    }
+    public static ArrayList<String> getShopInfosByName(String name) {
+
+        ArrayList<String> idList = getShopIdsByName(name);
+        ArrayList<String> infoList = new ArrayList<>();
+//        String idStr = String.format("0x%08x", id);
+        for (String idStr : idList) {
+            infoList.add(id2allTree.get(idStr));
+        }
+        return infoList;
+    }
+
     public static String getInfoById(int id) {
         String idStr = String.format("0x%08x", id);
         return id2allTree.get(idStr);

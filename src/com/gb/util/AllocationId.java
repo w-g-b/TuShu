@@ -22,7 +22,7 @@ public class AllocationId {
 
     private static int newLineId() {
         int id = 1;
-        while (Query2.isIdExist(id << 24)) {
+        while (Query.isIdExit(id << 24)) {
             id++;
         }
         return id << 24;
@@ -30,7 +30,7 @@ public class AllocationId {
 
     private static int newStationId(int idPrefix) {
         int id = 1;
-        while (Query2.isIdExist(idPrefix | (id << 16))) {
+        while (Query.isIdExit(idPrefix | (id << 16))) {
             id++;
             if (id > 255) {
                 System.out.println("数据过大，数据可能会出现错误");
@@ -42,7 +42,7 @@ public class AllocationId {
     private static int newShowTypeId(int idPrefix) {
 
         int id = 1;
-        while (Query2.isIdExist(idPrefix | (id << 8))) {
+        while (Query.isIdExit(idPrefix | (id << 8))) {
             id++;
             if (id > 255) {
                 System.out.println("数据过大，数据可能会出现错误");
@@ -54,7 +54,7 @@ public class AllocationId {
     private static int newSpecificShopId(int idPrefix) {
 
         int id = 1;
-        while (Query2.isIdExist(idPrefix | id)) {
+        while (Query.isIdExit(idPrefix | id)) {
             id++;
             if (id > 255) {
                 System.out.println("数据过大，数据可能会出现错误");

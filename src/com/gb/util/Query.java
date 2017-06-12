@@ -7,18 +7,18 @@ import java.util.*;
  * Created by Administrator on 2017/6/10.
  */
 public class Query {
-    private static Set<String> id2nameList;
+    private static Set<String> id2nameSet;
     private static TreeMap<String, String> id2allTree;
 
     static {
         initCollection();
-//        System.out.println(id2nameList + "\n" + id2nameList.size());
+//        System.out.println(id2nameSet + "\n" + id2nameSet.size());
 //        System.out.println((id2allTree) + "\n" + id2allTree.size());
     }
 
 
     private static void initCollection() {
-        id2nameList = new TreeSet<>();
+        id2nameSet = new TreeSet<>();
         id2allTree = new TreeMap<>();
         File dir = new File("info");
         if (!dir.exists()) {
@@ -32,7 +32,7 @@ public class Query {
             br2 = new BufferedReader(new FileReader(id2allFile));
             String line;
             while ((line = br1.readLine()) != null) {
-                id2nameList.add(line);
+                id2nameSet.add(line);
             }
             while ((line = br2.readLine()) != null) {
                 String lineSplit[] = line.split("=");
@@ -66,7 +66,7 @@ public class Query {
      */
     public static boolean isIdExit(int id) {
         String idStr = String.format("0x%08x", id);
-        for (String str : id2nameList) {
+        for (String str : id2nameSet) {
             if (str.matches(idStr + "=.*")) {
                 return true;
             }
@@ -79,17 +79,29 @@ public class Query {
      * @return 0表示没有找到, 其他数字代表具体id
      */
     public static int getIdByName(String name) {
-        for (String str : id2nameList) {
+        for (String str : id2nameSet) {
             if (str.matches(".*=" + name)) {
                 String numStr = str.substring(2);
                 return Integer.parseInt(numStr.split("=")[0], 16);
             }
         }
         return 0;
+
+    }
+
+    public static ArrayList<String> getIdBySameName(String name) {
+        ArrayList<String> idList = new ArrayList<>();
+        for (String str : id2nameSet) {
+            if (str.matches(".*=" + name)) {
+                idList.add(str.substring(2, 10));
+
+            }
+        }
+        return idList;
     }
 
     public static int getStationIdByName(String name) {
-        for (String str : id2nameList) {
+        for (String str : id2nameSet) {
             if (str.matches(".*0000=" + name)) {
                 String numStr = str.substring(2);
                 return Integer.parseInt(numStr.split("=")[0], 16);
@@ -98,7 +110,7 @@ public class Query {
         return 0;
     }
 //    public static int getStationIdByName(String name,String regex) {
-//        for (String str : id2nameList) {
+//        for (String str : id2nameSet) {
 //            if (str.matches(".*0000=" + name)) {
 //                String numStr = str.substring(2);
 //                return Integer.parseInt(numStr.split("=")[0], 16);
@@ -113,7 +125,7 @@ public class Query {
      */
     private static ArrayList<String> getIdsByName(String name) {
         ArrayList<String> idList = new ArrayList<>();
-        for (String line : id2nameList) {
+        for (String line : id2nameSet) {
             if (line.matches(".*=" + name)) {
 //                return Integer.parseInt(numStr.split("=")[0], 16);
                 idList.add(line.split("=")[0]);
@@ -138,7 +150,7 @@ public class Query {
 
     public static ArrayList<String> getShopIdsByName(String name) {
         ArrayList<String> idList = new ArrayList<>();
-        for (String line : id2nameList) {
+        for (String line : id2nameSet) {
             if (line.matches(".*([0][^0]|[^0][0])=" + name)) {
 //                return Integer.parseInt(numStr.split("=")[0], 16);
                 idList.add(line.split("=")[0]);
@@ -166,7 +178,7 @@ public class Query {
 
     public static String getNameById(int id) {
         String idStr = String.format("0x%08x", id);
-        for (String str : id2nameList) {
+        for (String str : id2nameSet) {
             if (str.matches(idStr + "=.*")) {
                 return str.split("=")[1];
             }
@@ -181,7 +193,7 @@ public class Query {
         ArrayList<String> infosList = new ArrayList<>();
         ArrayList<String> shopInfosList = new ArrayList<>();
         //获得匹配商店的id值
-        for (String str : id2nameList) {
+        for (String str : id2nameSet) {
             if (str.matches(idStr + shopType + "([0][^0]|[^0][0]).*")) {
                 idList.add(str.split("=")[0]);
             }
@@ -196,7 +208,7 @@ public class Query {
     public static ArrayList<String> getInfosMatchesId(String regexId) {
         ArrayList<String> idList = new ArrayList<>();
         ArrayList<String> infoList = new ArrayList<>();
-        for (String str : id2nameList) {
+        for (String str : id2nameSet) {
             if (str.matches(regexId + "=.*")) {
                 idList.add(str.split("=")[0]);
             }
@@ -210,14 +222,14 @@ public class Query {
     public static void modifyInfo(int id, String newInfo) {
         String idStr = String.format("0x%08x", id);
         id2allTree.remove(idStr);
-        for (String str : id2nameList) {
+        for (String str : id2nameSet) {
             if (str.matches(idStr + "=.*")) {
-                id2nameList.remove(str);
+                id2nameSet.remove(str);
                 break;
             }
         }
         String[] split = newInfo.split(" ");
-        id2nameList.add(split[0] + "=" + split[1]);
+        id2nameSet.add(split[0] + "=" + split[1]);
         id2allTree.put(split[0], newInfo);
         File dir = new File("info");
         if (!dir.exists()) {
@@ -230,7 +242,7 @@ public class Query {
         try {
             pw1 = new PrintWriter(new FileWriter(id2nameFile), true);
             pw2 = new PrintWriter(new FileWriter(id2allFile), true);
-            for (String line : id2nameList) {
+            for (String line : id2nameSet) {
                 pw1.println(line);
             }
             Set<String> set = id2allTree.keySet();
@@ -255,4 +267,79 @@ public class Query {
         return lindIdPref.equals(stationIdPref);
     }
 
+    public static void modifyStationAllInfo(int id, String newInfo) {
+//         idStr = String.format("0x%08x", id);
+        String idStrRegular = String.format("0x%08x", id).substring(0, 6);
+        String idPref = newInfo.substring(0, 6);
+        Set<String> newId2NameSet = new TreeSet<>();
+        TreeMap<String, String> newId2AllTree = new TreeMap<>();
+        Iterator<String> it = id2nameSet.iterator();
+        while (it.hasNext()) {
+            String str = it.next();
+            if (str.matches(idStrRegular + ".{2}([0][^0]|[^0][0]).*")) {
+                String newStr = idPref + str.substring(6);
+                //id2nameSet.remove(str);
+                it.remove();
+                newId2NameSet.add(newStr);
+                String oldInfo = id2allTree.get(str.substring(0, 10));
+                String[] split = oldInfo.split("[ ]+");
+                oldInfo = idPref + split[0].substring(6, 10) + " " + split[1] + " " +
+                        idPref + split[2].substring(6, 10) + " " + split[3] + " " +
+                        split[4] + " " + split[5];
+                id2allTree.remove(str.substring(0, 10));
+                newId2AllTree.put(newStr.substring(0, 10), oldInfo);
+            }
+        }
+//        for (String str : id2nameSet) {
+//            if (str.matches(idStrRegular + ".{2}([0][^0]|[^0][0]).*")) {
+//                String newStr = idPref + str.substring(6);
+//                id2nameSet.remove(str);
+//                newId2NameSet.add(newStr);
+//                String oldInfo = id2allTree.get(str.substring(0, 10));
+//                id2allTree.remove(str.substring(0, 10));
+//                newId2AllTree.put(newStr.substring(0, 10), oldInfo);
+//            }
+//        }
+        id2nameSet.addAll(newId2NameSet);
+        id2allTree.putAll(newId2AllTree);
+        String idStr = String.format("0x%08x", id);
+        id2allTree.remove(idStr);
+        for (String str : id2nameSet) {
+            if (str.matches(idStr + "=.*")) {
+                id2nameSet.remove(str);
+                break;
+            }
+        }
+        String[] split = newInfo.split(" ");
+        id2nameSet.add(split[0] + "=" + split[1]);
+        id2allTree.put(split[0], newInfo);
+        File dir = new File("info");
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+        File id2nameFile = new File(dir, "id2name.tb");
+        File id2allFile = new File(dir, "id2all.tb");
+        PrintWriter pw1 = null;
+        PrintWriter pw2 = null;
+        try {
+            pw1 = new PrintWriter(new FileWriter(id2nameFile), true);
+            pw2 = new PrintWriter(new FileWriter(id2allFile), true);
+            for (String line : id2nameSet) {
+                pw1.println(line);
+            }
+            Set<String> set = id2allTree.keySet();
+            for (String line : set) {
+                pw2.println(line + "=" + id2allTree.get(line));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (pw1 != null) {
+                pw1.close();
+            }
+            if (pw2 != null) {
+                pw2.close();
+            }
+        }
+    }
 }

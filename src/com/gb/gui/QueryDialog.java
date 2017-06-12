@@ -70,7 +70,6 @@ public class QueryDialog extends JDialog {
 					// TODO 存在问题，没有判断是否是店名
 					textArea.append(new SpecificShop(info).toShow());
 					textArea.setCaretPosition(0);
-
 				}
 			}
 		});

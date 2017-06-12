@@ -37,31 +37,31 @@ public class HomePage extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JButton queryButton = new JButton("\u4FE1\u606F\u67E5\u8BE2");
 		queryButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				QueryDialog dialog=new QueryDialog(HomePage.this, "信息查询",true);
+				QueryDialog dialog = new QueryDialog(HomePage.this, "信息查询", true);
 				dialog.setVisible(true);
 			}
 		});
 		queryButton.setBounds(79, 89, 130, 23);
 		contentPane.add(queryButton);
-		
+
 		JButton planButton = new JButton("\u7EBF\u8DEF\u89C4\u5212");
 		planButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PlanDialog dialog=new PlanDialog(HomePage.this, "线路规划", true);
+				PlanDialog dialog = new PlanDialog(HomePage.this, "线路规划", true);
 				dialog.setVisible(true);
 			}
 		});
 		planButton.setBounds(79, 132, 130, 23);
 		contentPane.add(planButton);
-		
+
 		JButton modifyButton = new JButton("\u4FE1\u606F\u4FEE\u6539");
 		modifyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ModifyDialog dialog=new ModifyDialog(HomePage.this, "修改信息", true);
+				ModifyDialog dialog = new ModifyDialog(HomePage.this, "修改信息", true);
 				dialog.setVisible(true);
 			}
 		});

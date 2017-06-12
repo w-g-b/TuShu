@@ -5,6 +5,8 @@ import com.gb.util.Query;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -141,6 +143,28 @@ public class QueryDialog extends JDialog {
         button.setBounds(127, 183, 93, 23);
         panel.add(button);
         panel.setVisible(true);
+        (textField.getDocument()).addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                String str = textField.getText();
+                int id = query.getStationIdByName(str);
+                if (id == 0) {
+//                    label1.setBounds(32, 144, 54, 15);
+//                    panel.add(label);
+//                    label
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+        });
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String shopType = "(";
@@ -171,22 +195,44 @@ public class QueryDialog extends JDialog {
                     }
                 }
                 if (radioButton_1.isSelected()) {
+                    ArrayList<SpecificShop> shopList = new ArrayList<>();
                     SpecificShop shop = shops[0];
+                    shopList.add(shop);
                     for (int j = 1; j < shops.length; j++) {
+//                        String idStr = String.format("0x%08x", shop.getId());
+//                        if (idStr.matches("0x.{6}" + shopType + ".{2}")) {
                         if (shop.getDistanceToStation() > shops[j].getDistanceToStation()) {
+                            shopList.clear();
+                            shopList.add(shops[j]);
                             shop = shops[j];
+                        } else if (shop.getDistanceToStation() == shops[j].getDistanceToStation()) {
+                            shopList.add(shops[j]);
                         }
+//                        }
                     }
-                    txtrFdf.append(shop.toShow());
+                    for (SpecificShop s : shopList) {
+                        txtrFdf.append(s.toShow());
+                    }
                 }
                 if (radioButton_2.isSelected()) {
+                    ArrayList<SpecificShop> shopList = new ArrayList<>();
                     SpecificShop shop = shops[0];
+                    shopList.add(shop);
                     for (int j = 1; j < shops.length; j++) {
+//                        String idStr = String.format("0x%08x", shop.getId());
+//                        if (idStr.matches("0x.{6}" + shopType + ".{2}")) {
                         if (shop.getRemarkGrade() < shops[j].getRemarkGrade()) {
+                            shopList.clear();
+                            shopList.add(shops[j]);
                             shop = shops[j];
+                        } else if (shop.getRemarkGrade() == shops[j].getRemarkGrade()) {
+                            shopList.add(shops[j]);
                         }
+//                        }
                     }
-                    txtrFdf.append(shop.toShow());
+                    for (SpecificShop s : shopList) {
+                        txtrFdf.append(s.toShow());
+                    }
 
                 }
                 txtrFdf.setCaretPosition(0);

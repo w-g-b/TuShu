@@ -250,8 +250,8 @@ public class Query {
     }
 
     public static boolean isLineStation(int lineId, int statinoId) {
-        String lindIdPref = String.format("0x%08x", lineId).substring(0, 6);
-        String stationIdPref = String.format("0x%08x", statinoId).substring(0, 6);
+        String lindIdPref = String.format("0x%08x", lineId).substring(0, 4);
+        String stationIdPref = String.format("0x%08x", statinoId).substring(0, 4);
         return lindIdPref.equals(stationIdPref);
     }
 

@@ -1,12 +1,25 @@
 package com.gb.gui;
 
-import com.gb.object.Line;
-import com.gb.object.SpecificShop;
-import com.gb.object.Station;
-import com.gb.util.AllocationId;
-import com.gb.util.Query;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JTree;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -14,12 +27,12 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
+
+import com.gb.object.Line;
+import com.gb.object.SpecificShop;
+import com.gb.object.Station;
+import com.gb.util.AllocationId;
+import com.gb.util.Query;
 
 public class ModifyDialog extends JDialog {
 
@@ -42,7 +55,7 @@ public class ModifyDialog extends JDialog {
     public ModifyDialog(JFrame f, String s, boolean b) {
         super(f, s, b);
         setTitle("\u4FEE\u6539\u4FE1\u606F");
-        setBounds(100, 100, 454, 416);
+        setBounds(500, 300, 454, 416);
         getContentPane().setLayout(null);
         contentPanel.setBounds(0, 0, 438, 352);
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -536,6 +549,8 @@ public class ModifyDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+				NewLineDialog dialog = new NewLineDialog(ModifyDialog.this, "新建线路", true);
+				dialog.setVisible(true);
             }
         });
 

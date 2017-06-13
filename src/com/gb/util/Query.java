@@ -228,37 +228,39 @@ public class Query {
                 break;
             }
         }
-        String[] split = newInfo.split(" ");
-        id2nameSet.add(split[0] + "=" + split[1]);
-        id2allTree.put(split[0], newInfo);
-        File dir = new File("info");
-        if (!dir.exists()) {
-            dir.mkdir();
-        }
-        File id2nameFile = new File(dir, "id2name.tb");
-        File id2allFile = new File(dir, "id2all.tb");
-        PrintWriter pw1 = null;
-        PrintWriter pw2 = null;
-        try {
-            pw1 = new PrintWriter(new FileWriter(id2nameFile), true);
-            pw2 = new PrintWriter(new FileWriter(id2allFile), true);
-            for (String line : id2nameSet) {
-                pw1.println(line);
-            }
-            Set<String> set = id2allTree.keySet();
-            for (String line : set) {
-                pw2.println(line + "=" + id2allTree.get(line));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (pw1 != null) {
-                pw1.close();
-            }
-            if (pw2 != null) {
-                pw2.close();
-            }
-        }
+        addInfo(newInfo);
+
+//        String[] split = newInfo.split(" ");
+//        id2nameSet.add(split[0] + "=" + split[1]);
+//        id2allTree.put(split[0], newInfo);
+//        File dir = new File("info");
+//        if (!dir.exists()) {
+//            dir.mkdir();
+//        }
+//        File id2nameFile = new File(dir, "id2name.tb");
+//        File id2allFile = new File(dir, "id2all.tb");
+//        PrintWriter pw1 = null;
+//        PrintWriter pw2 = null;
+//        try {
+//            pw1 = new PrintWriter(new FileWriter(id2nameFile), true);
+//            pw2 = new PrintWriter(new FileWriter(id2allFile), true);
+//            for (String line : id2nameSet) {
+//                pw1.println(line);
+//            }
+//            Set<String> set = id2allTree.keySet();
+//            for (String line : set) {
+//                pw2.println(line + "=" + id2allTree.get(line));
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (pw1 != null) {
+//                pw1.close();
+//            }
+//            if (pw2 != null) {
+//                pw2.close();
+//            }
+//        }
     }
 
     public static boolean isLineStation(int lineId, int statinoId) {
@@ -313,6 +315,40 @@ public class Query {
         String[] split = newInfo.split(" ");
         id2nameSet.add(split[0] + "=" + split[1]);
         id2allTree.put(split[0], newInfo);
+        File dir = new File("info");
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+        File id2nameFile = new File(dir, "id2name.tb");
+        File id2allFile = new File(dir, "id2all.tb");
+        PrintWriter pw1 = null;
+        PrintWriter pw2 = null;
+        try {
+            pw1 = new PrintWriter(new FileWriter(id2nameFile), true);
+            pw2 = new PrintWriter(new FileWriter(id2allFile), true);
+            for (String line : id2nameSet) {
+                pw1.println(line);
+            }
+            Set<String> set = id2allTree.keySet();
+            for (String line : set) {
+                pw2.println(line + "=" + id2allTree.get(line));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (pw1 != null) {
+                pw1.close();
+            }
+            if (pw2 != null) {
+                pw2.close();
+            }
+        }
+    }
+
+    public static void addInfo(String info) {
+        String[] split = info.split(" ");
+        id2nameSet.add(split[0] + "=" + split[1]);
+        id2allTree.put(split[0], info);
         File dir = new File("info");
         if (!dir.exists()) {
             dir.mkdir();

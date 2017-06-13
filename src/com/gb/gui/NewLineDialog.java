@@ -48,11 +48,11 @@ public class NewLineDialog extends JDialog {
                 }
             }
         });
-        button.setBounds(105, 116, 57, 23);
+        button.setBounds(105, 116, 66, 23);
         contentPanel.add(button);
 
         JButton button_1 = new JButton("\u53D6\u6D88");
-        button_1.setBounds(38, 116, 57, 23);
+        button_1.setBounds(29, 116, 66, 23);
         contentPanel.add(button_1);
         button_1.addActionListener(new ActionListener() {
             @Override

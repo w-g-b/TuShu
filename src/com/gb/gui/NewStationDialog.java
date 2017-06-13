@@ -38,11 +38,11 @@ public class NewStationDialog extends JDialog {
         textField.setColumns(10);
 
         JButton button = new JButton("\u65B0\u5EFA");
-        button.setBounds(118, 162, 57, 23);
+        button.setBounds(105, 162, 70, 23);
         contentPanel.add(button);
 
         JButton button_1 = new JButton("\u53D6\u6D88");
-        button_1.setBounds(29, 162, 57, 23);
+        button_1.setBounds(29, 162, 66, 23);
         contentPanel.add(button_1);
 
         JLabel label_1 = new JLabel("\u6240\u5C5E\u7EBF\u8DEF:");

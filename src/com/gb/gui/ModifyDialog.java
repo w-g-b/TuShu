@@ -160,10 +160,7 @@ public class ModifyDialog extends JDialog {
 		panel_3.add(label_9);
 
 		JButton button = new JButton("\u4FDD\u5B58");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+
 		button.setBounds(40, 289, 93, 23);
 		panel_3.add(button);
 

@@ -1,22 +1,13 @@
 package com.gb.gui;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-
 import com.gb.util.AllocationId;
 import com.gb.util.Query;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class NewShopDialog extends JDialog {
 
@@ -105,17 +96,34 @@ public class NewShopDialog extends JDialog {
         scrollPane.setViewportView(textArea);
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int lineId = Query.getIdByName(textField_1.getText());
-                if (lineId == 0) {
-                    JOptionPane.showMessageDialog(NewShopDialog.this, "线路不存在,无法保存", "警告", JOptionPane.WARNING_MESSAGE);
+                String stationIdPref = String.format("%08x", Query.getIdByName(textField_2.getText())).substring(0, 4);
+                // int shopTypeId = Query.getIdByName(textField_7.getText());
+                // String shopTypeIdStr = String.format("0x%08x",
+                // shop[0].getShopTypeId());
+                String shopType = textField_1.getText();
+                String shopTypeIdStr = null;
+                if (shopType.equals("酒店")) {
+                    shopTypeIdStr = "01";
+                } else if (shopType.equals("超市")) {
+                    shopTypeIdStr = "02";
+                } else if (shopType.equals("美食")) {
+                    shopTypeIdStr = "03";
+                } else {
+                    JOptionPane.showMessageDialog(NewShopDialog.this, "类型错误,无法保存", "警告", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                String lineIdStr = String.format("0x%08x", lineId);
-                String stationIdStr = String.format("0x%08x", AllocationId.newId(lineId));
-                boolean isTranslate = textField_2.getText().equals("换乘") ? true : false;
-                String info = stationIdStr + " " + textField.getText() + " " + lineIdStr + " " + isTranslate;
+                if (Query.getIdByName(textField_2.getText()) == 0) {
+                    JOptionPane.showMessageDialog(NewShopDialog.this, "站点不存在", "警告", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                String shopIdStrPref = stationIdPref + shopTypeIdStr + "00";
+                String shopIdStr = String.format("0x%08x", AllocationId.newId(Integer.parseInt(shopIdStrPref, 16)));
+                String info = shopIdStr + " " + textField.getText() + " 0x" + stationIdPref + shopTypeIdStr + "00 "
+                        + textField_3.getText() + " " + textField_4.getText() + " " + textArea.getText();
                 Query.addInfo(info);
-                JOptionPane.showMessageDialog(NewShopDialog.this, "保存成功", "保存", JOptionPane.INFORMATION_MESSAGE);
+                // JTree tree = new JTree(initTreeRoot());
+                // scrollPane.setViewportView(tree);
+                JOptionPane.showMessageDialog(NewShopDialog.this, "新建成功", "保存", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             }
         });

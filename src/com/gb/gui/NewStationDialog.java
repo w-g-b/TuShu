@@ -74,7 +74,7 @@ public class NewStationDialog extends JDialog {
                 boolean isTranslate = textField_2.getText().equals("换乘") ? true : false;
                 String info = stationIdStr + " " + textField.getText() + " " + lineIdStr + " " + isTranslate;
                 Query.addInfo(info);
-                JOptionPane.showMessageDialog(NewStationDialog.this, "保存成功", "保存", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(NewStationDialog.this, "新建成功", "保存", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             }
         });

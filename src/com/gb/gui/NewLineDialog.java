@@ -43,7 +43,7 @@ public class NewLineDialog extends JDialog {
                     String lineIdStr = String.format("0x%08x", lineId);
                     String info = lineIdStr + " " + textField.getText() + " " + "0x00000000" + " " + "0x00000000";
                     Query.addInfo(info);
-                    JOptionPane.showMessageDialog(NewLineDialog.this, "保存成功", "保存", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(NewLineDialog.this, "新建成功", "保存", JOptionPane.INFORMATION_MESSAGE);
                     dispose();
                 }
             }

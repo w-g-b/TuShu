@@ -382,7 +382,7 @@ public class ModifyDialog extends JDialog {
         button_1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO 保存站点
+                // 保存站点
                 int lineId = Query.getIdByName(textField_4.getText());
                 if (lineId == 0) {
                     JOptionPane.showMessageDialog(ModifyDialog.this, "线路不存在,无法保存", "警告", JOptionPane.WARNING_MESSAGE);
@@ -400,6 +400,7 @@ public class ModifyDialog extends JDialog {
         button_2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //保存线路
                 int firstStationId = Query.getIdByName(textField_1.getText());
                 int finallyStationId = Query.getIdByName(textField_2.getText());
                 if (!Query.isLineStation(line[0].getId(), firstStationId)
@@ -418,12 +419,26 @@ public class ModifyDialog extends JDialog {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // String stationInfo = String.format("0x%08x",
-                // station.getId())+" "+text
+                String stationIdPref
+                        = String.format("%08x", Query.getIdByName(textField_8.getText())).substring(0, 4);
                 // int shopTypeId = Query.getIdByName(textField_7.getText());
-                String shopTypeIdStr = String.format("0x%08x", shop[0].getShopTypeId());
-                String shopIdStr = String.format("0x%08x", shop[0].getId());
-                String info = shopIdStr + " " + textField_6.getText() + " " + shopTypeIdStr + " "
+//                String shopTypeIdStr = String.format("0x%08x", shop[0].getShopTypeId());
+                String shopType = textField_7.getText();
+                String shopTypeIdStr = null;
+                if (shopType.equals("酒店")) {
+                    shopTypeIdStr = "01";
+                } else if (shopType.equals("超市")) {
+                    shopTypeIdStr = "02";
+                } else if (shopType.equals("美食")) {
+                    shopTypeIdStr = "03";
+                } else {
+                    JOptionPane.showMessageDialog(ModifyDialog.this, "类型错误,无法保存", "警告", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                String shopIdStrPref = stationIdPref + shopTypeIdStr + "00";
+                String shopIdStr
+                        = String.format("0x%08x", AllocationId.newId(Integer.parseInt(shopIdStrPref, 16)));
+                String info = shopIdStr + " " + textField_6.getText() + " 0x" + stationIdPref + shopTypeIdStr + "00 "
                         + textField_9.getText() + " " + textField_10.getText() + " " + textArea.getText();
                 Query.modifyInfo(shop[0].getId(), info);
                 // JTree tree = new JTree(initTreeRoot());

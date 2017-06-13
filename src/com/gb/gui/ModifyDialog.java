@@ -17,6 +17,8 @@ import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class ModifyDialog extends JDialog {
@@ -33,7 +35,7 @@ public class ModifyDialog extends JDialog {
     private JTextField textField_8;
     private JTextField textField_9;
     private JTextField textField_10;
-
+    private JPopupMenu menu;
     /**
      * Create the dialog.
      */
@@ -506,8 +508,37 @@ public class ModifyDialog extends JDialog {
                 JOptionPane.showMessageDialog(ModifyDialog.this, "保存成功", "保存", JOptionPane.INFORMATION_MESSAGE);
                 // System.out.println("保存线路");
             }
+
+
         });
         scrollPane.setViewportView(tree);
+        menu = new JPopupMenu();
+        menu.setVisible(true);
+        rightMouse();
+    }
+
+    private void rightMouse() {
+        JMenuItem newLine = new JMenuItem("新建线路");
+        JMenuItem newStation= new JMenuItem("新建站点");
+        JMenuItem newShop = new JMenuItem("新建店铺");
+        menu.add(newLine);
+        menu.add(newStation);
+        menu.add(newShop);
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON3) {
+                    menu.show(ModifyDialog.this, e.getX(), e.getY());
+                }
+            }
+        });
+        newLine.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
     }
 
     private DefaultMutableTreeNode initTreeRoot() {

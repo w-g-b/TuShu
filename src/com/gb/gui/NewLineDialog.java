@@ -45,6 +45,7 @@ public class NewLineDialog extends JDialog {
                     Query.addInfo(info);
                     JOptionPane.showMessageDialog(NewLineDialog.this, "新建成功", "保存", JOptionPane.INFORMATION_MESSAGE);
                     dispose();
+//                    modifyDialog.dispose();
                 }
             }
         });

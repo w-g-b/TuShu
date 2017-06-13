@@ -29,11 +29,11 @@ public class NewStationDialog extends JDialog {
         contentPanel.setLayout(null);
 
         JLabel label = new JLabel("\u7AD9\u70B9\u540D:");
-        label.setBounds(44, 54, 42, 15);
+        label.setBounds(37, 51, 51, 15);
         contentPanel.add(label);
 
         textField = new JTextField();
-        textField.setBounds(96, 51, 66, 21);
+        textField.setBounds(98, 48, 66, 21);
         contentPanel.add(textField);
         textField.setColumns(10);
 
@@ -46,20 +46,20 @@ public class NewStationDialog extends JDialog {
         contentPanel.add(button_1);
 
         JLabel label_1 = new JLabel("\u6240\u5C5E\u7EBF\u8DEF:");
-        label_1.setBounds(30, 85, 54, 15);
+        label_1.setBounds(30, 85, 66, 15);
         contentPanel.add(label_1);
 
         textField_1 = new JTextField();
-        textField_1.setBounds(96, 82, 66, 21);
+        textField_1.setBounds(98, 79, 66, 21);
         contentPanel.add(textField_1);
         textField_1.setColumns(10);
 
         JLabel label_2 = new JLabel("\u662F\u5426\u6362\u4E58:");
-        label_2.setBounds(32, 115, 54, 15);
+        label_2.setBounds(32, 115, 63, 15);
         contentPanel.add(label_2);
 
         textField_2 = new JTextField();
-        textField_2.setBounds(96, 112, 66, 21);
+        textField_2.setBounds(98, 109, 66, 21);
         contentPanel.add(textField_2);
         textField_2.setColumns(10);
         button.addActionListener(new ActionListener() {

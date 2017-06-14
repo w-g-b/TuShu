@@ -254,8 +254,8 @@ public class ModifyDialog extends JDialog {
                     textField.setText(line.getName());
                     textField_1.setText(line.getFirstStationName());
                     textField_2.setText(line.getFinallyStationName());
-                    station=null;
-                    shop=null;
+                    station = null;
+                    shop = null;
                 } else if (nodeObject instanceof Station) {
                     textField_3.setText("");
                     textField_4.setText("");
@@ -456,7 +456,6 @@ public class ModifyDialog extends JDialog {
                     } else {
                         label_11.setVisible(true);
                     }
-
                 }
             }
         });
@@ -548,6 +547,7 @@ public class ModifyDialog extends JDialog {
 //            }
 //        });
     }
+
     private JMenuItem newLine = new JMenuItem("新建线路");
     private JMenuItem newShop = new JMenuItem("新建店铺");
     private JMenuItem newStation = new JMenuItem("新建站点");
@@ -567,7 +567,7 @@ public class ModifyDialog extends JDialog {
             public void mouseClicked(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON3) {
 
-                    if (station== null) {
+                    if (station == null) {
                         removeStation.setVisible(false);
                     } else {
                         removeStation.setVisible(true);

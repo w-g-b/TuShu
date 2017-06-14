@@ -14,6 +14,7 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeSelectionModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,6 +40,9 @@ public class ModifyDialog extends JDialog {
     private Line line = null;
     private Station station = null;
     private SpecificShop shop = null;
+    private JTree tree;
+    private DefaultTreeModel treeModel;
+    private DefaultMutableTreeNode treeRoot;
 
     /**
      * Create the dialog.
@@ -233,15 +237,51 @@ public class ModifyDialog extends JDialog {
         panel_2.setVisible(false);
 
         // DefaultMutableTreeNode root = initTreeRoot();
-        // for(String str:query.getIdByName("1"))
-        JTree tree = new JTree(new DefaultTreeModel(initTreeRoot()));
+        // for(String sr:query.getIdByName("1"))
+        treeRoot = initTreeRoot();
+        treeModel = new DefaultTreeModel(treeRoot);
+        tree = new JTree(treeModel);
+//        tree.setEditable(true);
+        tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+
+//        treeModel.addTreeModelListener(new TreeModelListener() {
+//            @Override
+//            public void treeNodesChanged(TreeModelEvent e) {
+//
+//            }
+//
+//            @Override
+//            public void treeNodesInserted(TreeModelEvent e) {
+//
+//            }
+//
+//            @Override
+//            public void treeNodesRemoved(TreeModelEvent e) {
+//
+//            }
+//
+//            @Override
+//            public void treeStructureChanged(TreeModelEvent e) {
+//
+//            }
+//        });
+//        tree.setRootVisible(false);
+        //用水平线分隔
+//        tree.putClientProperty("JTree.lineStyle", "Horizontal");
+        //不显示任何行线
+//        tree.putClientProperty("JTree.lineStyle", "None");
+
 
         tree.addTreeSelectionListener(new TreeSelectionListener() {
+
 
             @Override
             public void valueChanged(TreeSelectionEvent e) {
                 // TODO Auto-generated method stub
                 DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+                if (node == null) {
+                    return;
+                }
                 Object nodeObject = node.getUserObject();
                 if (nodeObject instanceof Line) {
                     textField.setText("");
@@ -368,27 +408,6 @@ public class ModifyDialog extends JDialog {
                 }
             }
         });
-        button_2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // 保存线路
-                int firstStationId = Query.getIdByName(textField_1.getText());
-                int finallyStationId = Query.getIdByName(textField_2.getText());
-                if (!Query.isLineStation(line.getId(), firstStationId)
-                        || !Query.isLineStation(line.getId(), finallyStationId)) {
-                    JOptionPane.showMessageDialog(ModifyDialog.this, "站点信息错误,无法保存", "警告", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-                String firstStationIdStr = String.format("0x%08x", firstStationId);
-                String finallyStationIdStr = String.format("0x%08x", finallyStationId);
-                String lineInfo = String.format("0x%08x", line.getId()) + " " + textField.getText() + " "
-                        + firstStationIdStr + " " + finallyStationIdStr;
-                Query.modifyInfo(line.getId(), lineInfo);
-                JOptionPane.showMessageDialog(ModifyDialog.this, "保存成功", "保存", JOptionPane.INFORMATION_MESSAGE);
-                // System.out.println("保存线路");
-            }
-
-        });
 
         button.addActionListener(new ActionListener() {
             @Override
@@ -421,6 +440,10 @@ public class ModifyDialog extends JDialog {
                 // JTree tree = new JTree(initTreeRoot());
                 // scrollPane.setViewportView(tree);
                 JOptionPane.showMessageDialog(ModifyDialog.this, "保存成功", "保存", JOptionPane.INFORMATION_MESSAGE);
+
+                DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+                node.setUserObject(new SpecificShop(info));
+                treeModel.reload(node);
 
             }
         });
@@ -495,6 +518,70 @@ public class ModifyDialog extends JDialog {
             }
         });
 
+//        treeModel.addTreeModelListener(new TreeModelListener() {
+//            @Override
+//            public void treeNodesChanged(TreeModelEvent e) {
+//                System.out.println("change");
+//            }
+//
+//            @Override
+//            public void treeNodesInserted(TreeModelEvent e) {
+//                System.out.println("inserted");
+//
+//            }
+//
+//            @Override
+//            public void treeNodesRemoved(TreeModelEvent e) {
+//                System.out.println("remove");
+//
+//            }
+//
+//            @Override
+//            public void treeStructureChanged(TreeModelEvent e) {
+//                System.out.println("str");
+//
+//            }
+//        });
+
+        button_2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 保存线路
+                int firstStationId = Query.getIdByName(textField_1.getText());
+                int finallyStationId = Query.getIdByName(textField_2.getText());
+                if (!Query.isLineStation(line.getId(), firstStationId)
+                        || !Query.isLineStation(line.getId(), finallyStationId)) {
+                    JOptionPane.showMessageDialog(ModifyDialog.this, "站点信息错误,无法保存", "警告", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                String firstStationIdStr = String.format("0x%08x", firstStationId);
+                String finallyStationIdStr = String.format("0x%08x", finallyStationId);
+                String lineInfo = String.format("0x%08x", line.getId()) + " " + textField.getText() + " "
+                        + firstStationIdStr + " " + finallyStationIdStr;
+                Query.modifyInfo(line.getId(), lineInfo);
+                JOptionPane.showMessageDialog(ModifyDialog.this, "保存成功", "保存", JOptionPane.INFORMATION_MESSAGE);
+
+//                root.removeAllChildren();
+//                refreshRoot(root);
+
+//                root.removeAllChildren();
+//                refreshRoot(root);
+//                treeModel.reload();
+                // System.out.println("保存线路");
+//                DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(new Line(lineInfo));
+//                treeModel.
+
+//                treeModel.insertNodeInto(node,(DefaultMutableTreeNode)node.getParent(),node.getChildCount());
+//                treeModel.removeNodeFromParent(node);
+                DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+//                Line line = (Line) node.getUserObject();
+//                line.setName(textField.getText());
+                node.setUserObject(new Line(lineInfo));
+
+                treeModel.reload(node);
+            }
+
+        });
         button_1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -511,6 +598,9 @@ public class ModifyDialog extends JDialog {
                 Query.modifyStationAllInfo(station.getId(), info);
                 JOptionPane.showMessageDialog(ModifyDialog.this, "保存成功", "保存", JOptionPane.INFORMATION_MESSAGE);
                 // System.out.println("保存站点");
+                DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+                node.setUserObject(new Station(info));
+                treeModel.reload(node);
             }
         });
         scrollPane.setViewportView(tree);
@@ -546,6 +636,32 @@ public class ModifyDialog extends JDialog {
 //                });
 //            }
 //        });
+    }
+
+
+    private void refreshRoot(DefaultMutableTreeNode root) {
+        ArrayList<String> lineInfoList = Query.getInfosMatchesId("0x.{2}000000");
+        for (String lineInfo : lineInfoList) {
+            Line line = new Line(lineInfo);
+            DefaultMutableTreeNode lineNode = new DefaultMutableTreeNode(line);
+            String lineIdStr = String.format("0x%08x", line.getId());
+            ArrayList<String> StationInfoList = Query
+                    .getInfosMatchesId(lineIdStr.substring(0, 4) + "(0[^0]|[^0]0)0000");
+            for (String stationInfo : StationInfoList) {
+                Station station = new Station(stationInfo);
+                DefaultMutableTreeNode stationNode = new DefaultMutableTreeNode(station);
+                String stationIdStr = String.format("0x%08x", station.getId());
+                ArrayList<String> shopInfoList = Query
+                        .getInfosMatchesId(stationIdStr.substring(0, 6) + ".{2}([0][^0]|[^0][0])");
+                for (String shopInfo : shopInfoList) {
+                    SpecificShop shop = new SpecificShop(shopInfo);
+                    DefaultMutableTreeNode shopNode = new DefaultMutableTreeNode(shop);
+                    stationNode.add(shopNode);
+                }
+                lineNode.add(stationNode);
+            }
+            root.add(lineNode);
+        }
     }
 
     private JMenuItem newLine = new JMenuItem("新建线路");
@@ -592,6 +708,10 @@ public class ModifyDialog extends JDialog {
 
                 NewLineDialog dialog = new NewLineDialog(ModifyDialog.this, "新建线路", true);
                 dialog.setVisible(true);
+                treeRoot.removeAllChildren();
+                refreshRoot(treeRoot);
+                treeModel.reload(treeRoot);
+//                tree.expandRow(0);
             }
         });
         newStation.addActionListener(new ActionListener() {
@@ -600,6 +720,9 @@ public class ModifyDialog extends JDialog {
 
                 NewStationDialog dialog = new NewStationDialog(ModifyDialog.this, "新建站点", true);
                 dialog.setVisible(true);
+                treeRoot.removeAllChildren();
+                refreshRoot(treeRoot);
+                treeModel.reload(treeRoot);
             }
         });
         newShop.addActionListener(new ActionListener() {
@@ -608,6 +731,9 @@ public class ModifyDialog extends JDialog {
 
                 NewShopDialog dialog = new NewShopDialog(ModifyDialog.this, "新建店铺", true);
                 dialog.setVisible(true);
+                treeRoot.removeAllChildren();
+                refreshRoot(treeRoot);
+                treeModel.reload(treeRoot);
             }
         });
         removeLine.addActionListener(new ActionListener() {
@@ -617,6 +743,9 @@ public class ModifyDialog extends JDialog {
                     Query.deleteInfo(line.getId(), 4);
                     JOptionPane.showMessageDialog(ModifyDialog.this, "删除数据成功", "删除", JOptionPane.INFORMATION_MESSAGE);
 
+                    treeRoot.removeAllChildren();
+                    refreshRoot(treeRoot);
+                    treeModel.reload(treeRoot);
                 }
             }
         });
@@ -626,6 +755,9 @@ public class ModifyDialog extends JDialog {
                 if (station != null) {
                     Query.deleteInfo(station.getId(), 6);
                     JOptionPane.showMessageDialog(ModifyDialog.this, "删除数据成功", "删除", JOptionPane.INFORMATION_MESSAGE);
+                    treeRoot.removeAllChildren();
+                    refreshRoot(treeRoot);
+                    treeModel.reload(treeRoot);
                 }
             }
         });
@@ -635,6 +767,10 @@ public class ModifyDialog extends JDialog {
                 if (shop != null) {
                     Query.deleteInfo(shop.getId(), 10);
                     JOptionPane.showMessageDialog(ModifyDialog.this, "删除数据成功", "删除", JOptionPane.INFORMATION_MESSAGE);
+
+                    treeRoot.removeAllChildren();
+                    refreshRoot(treeRoot);
+                    treeModel.reload(treeRoot);
                 }
             }
         });
@@ -642,28 +778,7 @@ public class ModifyDialog extends JDialog {
 
     private DefaultMutableTreeNode initTreeRoot() {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("地铁");
-        ArrayList<String> lineInfoList = Query.getInfosMatchesId("0x.{2}000000");
-        for (String lineInfo : lineInfoList) {
-            Line line = new Line(lineInfo);
-            DefaultMutableTreeNode lineNode = new DefaultMutableTreeNode(line);
-            String lineIdStr = String.format("0x%08x", line.getId());
-            ArrayList<String> StationInfoList = Query
-                    .getInfosMatchesId(lineIdStr.substring(0, 4) + "(0[^0]|[^0]0)0000");
-            for (String stationInfo : StationInfoList) {
-                Station station = new Station(stationInfo);
-                DefaultMutableTreeNode stationNode = new DefaultMutableTreeNode(station);
-                String stationIdStr = String.format("0x%08x", station.getId());
-                ArrayList<String> shopInfoList = Query
-                        .getInfosMatchesId(stationIdStr.substring(0, 6) + ".{2}([0][^0]|[^0][0])");
-                for (String shopInfo : shopInfoList) {
-                    SpecificShop shop = new SpecificShop(shopInfo);
-                    DefaultMutableTreeNode shopNode = new DefaultMutableTreeNode(shop);
-                    stationNode.add(shopNode);
-                }
-                lineNode.add(stationNode);
-            }
-            root.add(lineNode);
-        }
+        refreshRoot(root);
         return root;
     }
 }

@@ -409,44 +409,6 @@ public class ModifyDialog extends JDialog {
             }
         });
 
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String stationIdPref = String.format("%08x", Query.getIdByName(textField_8.getText())).substring(0, 4);
-                // int shopTypeId = Query.getIdByName(textField_7.getText());
-                // String shopTypeIdStr = String.format("0x%08x",
-                // shop.getShopTypeId());
-                String shopType = textField_7.getText();
-                String shopTypeIdStr = null;
-                if (shopType.equals("酒店")) {
-                    shopTypeIdStr = "01";
-                } else if (shopType.equals("超市")) {
-                    shopTypeIdStr = "02";
-                } else if (shopType.equals("美食")) {
-                    shopTypeIdStr = "03";
-                } else {
-                    JOptionPane.showMessageDialog(ModifyDialog.this, "类型错误,无法保存", "警告", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-                if (Query.getIdByName(textField_8.getText()) == 0) {
-                    JOptionPane.showMessageDialog(ModifyDialog.this, "站点不存在", "警告", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-                String shopIdStrPref = stationIdPref + shopTypeIdStr + "00";
-                String shopIdStr = String.format("0x%08x", AllocationId.newId(Integer.parseInt(shopIdStrPref, 16)));
-                String info = shopIdStr + " " + textField_6.getText() + " 0x" + stationIdPref + shopTypeIdStr + "00 "
-                        + textField_9.getText() + " " + textField_10.getText() + " " + textArea.getText();
-                Query.modifyInfo(shop.getId(), info);
-                // JTree tree = new JTree(initTreeRoot());
-                // scrollPane.setViewportView(tree);
-                JOptionPane.showMessageDialog(ModifyDialog.this, "保存成功", "保存", JOptionPane.INFORMATION_MESSAGE);
-
-                DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-                node.setUserObject(new SpecificShop(info));
-                treeModel.reload(node);
-
-            }
-        });
         (textField_1.getDocument()).addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -582,6 +544,52 @@ public class ModifyDialog extends JDialog {
             }
 
         });
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String stationIdPref = String.format("%08x", Query.getIdByName(textField_8.getText())).substring(0, 4);
+                // int shopTypeId = Query.getIdByName(textField_7.getText());
+                // String shopTypeIdStr = String.format("0x%08x",
+                // shop.getShopTypeId());
+                String shopType = textField_7.getText();
+                if (!shopType.equals("酒店") && !shopType.equals("美食") && !shopType.equals("超市")) {
+                    JOptionPane.showMessageDialog(ModifyDialog.this, "类型错误", "警告", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                String shopTypeIdStr = null;
+                if (shopType.equals("酒店")) {
+                    shopTypeIdStr = "01";
+                } else if (shopType.equals("超市")) {
+                    shopTypeIdStr = "02";
+                } else if (shopType.equals("美食")) {
+                    shopTypeIdStr = "03";
+                } else {
+                    JOptionPane.showMessageDialog(ModifyDialog.this, "类型错误,无法保存", "警告", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                if (Query.getIdByName(textField_8.getText()) == 0) {
+                    JOptionPane.showMessageDialog(ModifyDialog.this, "站点不存在", "警告", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                String shopIdStrPref = stationIdPref + shopTypeIdStr + "00";
+                String shopIdStr = String.format("0x%08x", AllocationId.newId(Integer.parseInt(shopIdStrPref, 16)));
+                String info = shopIdStr + " " + textField_6.getText() + " 0x" + stationIdPref + shopTypeIdStr + "00 "
+                        + textField_9.getText() + " " + textField_10.getText() + " " + textArea.getText();
+                Query.modifyInfo(shop.getId(), info);
+                // JTree tree = new JTree(initTreeRoot());
+                // scrollPane.setViewportView(tree);
+                JOptionPane.showMessageDialog(ModifyDialog.this, "保存成功", "保存", JOptionPane.INFORMATION_MESSAGE);
+
+//                DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+//                node.setUserObject(new SpecificShop(info));
+//                treeModel.reload(node);
+
+                treeRoot.removeAllChildren();
+                refreshRoot(treeRoot);
+                treeModel.reload(treeRoot);
+
+            }
+        });
         button_1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -598,9 +606,13 @@ public class ModifyDialog extends JDialog {
                 Query.modifyStationAllInfo(station.getId(), info);
                 JOptionPane.showMessageDialog(ModifyDialog.this, "保存成功", "保存", JOptionPane.INFORMATION_MESSAGE);
                 // System.out.println("保存站点");
-                DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-                node.setUserObject(new Station(info));
-                treeModel.reload(node);
+//                DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+//                node.setUserObject(new Station(info));
+//                treeModel.reload(node);
+
+                treeRoot.removeAllChildren();
+                refreshRoot(treeRoot);
+                treeModel.reload(treeRoot);
             }
         });
         scrollPane.setViewportView(tree);

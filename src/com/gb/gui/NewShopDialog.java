@@ -5,13 +5,15 @@ import com.gb.util.Query;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class NewShopDialog extends JDialog {
 
-	private final JPanel contentPanel = new JPanel();
+    private final JPanel contentPanel = new JPanel();
 
     private JTextField textField;
     private JTextField textField_1;
@@ -20,9 +22,9 @@ public class NewShopDialog extends JDialog {
     private JTextField textField_4;
 
 
-	/**
-	 * Create the dialog.
-	 */
+    /**
+     * Create the dialog.
+     */
     public NewShopDialog(ModifyDialog modifyDialog, String s, boolean b) {
         super(modifyDialog, s, b);
         setBounds(500, 300, 282, 383);
@@ -65,52 +67,108 @@ public class NewShopDialog extends JDialog {
         textField_2.setBounds(113, 98, 76, 21);
         contentPanel.add(textField_2);
         textField_2.setColumns(10);
-        
+
         JLabel label_3 = new JLabel("\u8DDD\u79BB:");
         label_3.setBounds(61, 132, 54, 15);
         contentPanel.add(label_3);
-        
+
         textField_3 = new JTextField();
         textField_3.setBounds(113, 129, 76, 21);
         contentPanel.add(textField_3);
         textField_3.setColumns(10);
-        
+
         JLabel label_4 = new JLabel("\u8BC4\u5206:");
         label_4.setBounds(61, 164, 54, 15);
         contentPanel.add(label_4);
-        
+
         textField_4 = new JTextField();
         textField_4.setBounds(113, 161, 76, 21);
         contentPanel.add(textField_4);
         textField_4.setColumns(10);
-        
+
         JLabel label_5 = new JLabel("\u8BC4\u4EF7:");
         label_5.setBounds(61, 187, 54, 15);
         contentPanel.add(label_5);
-        
+
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(47, 212, 172, 74);
         contentPanel.add(scrollPane);
-        
+
         JTextArea textArea = new JTextArea();
         scrollPane.setViewportView(textArea);
-        
+
         JLabel label_6 = new JLabel("*");
         label_6.setForeground(new Color(255, 99, 71));
         label_6.setBounds(199, 64, 42, 15);
+        label_6.setVisible(false);
+
         contentPanel.add(label_6);
-        
+
         JLabel label_7 = new JLabel("*");
         label_7.setForeground(new Color(255, 99, 71));
         label_7.setBounds(199, 101, 42, 15);
+        label_7.setVisible(false);
         contentPanel.add(label_7);
+        (textField_1.getDocument()).addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                changedUpdate(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                changedUpdate(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                String type = textField_1.getText();
+                if (!type.equals("酒店") && !type.equals("美食") && !type.equals("超市")) {
+                    label_6.setVisible(true);
+                } else {
+                    label_6.setVisible(false);
+                }
+            }
+        });
+        (textField_2.getDocument()).addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                changedUpdate(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                changedUpdate(e);
+
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                int stationId = Query.getIdByName(textField_2.getText());
+                if (stationId == 0 && !textField_2.getText().isEmpty()) {
+                    label_7.setVisible(true);
+                } else {
+                    label_7.setVisible(false);
+                }
+            }
+        });
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String stationIdPref = String.format("%08x", Query.getIdByName(textField_2.getText())).substring(0, 4);
+                String shopType = textField_1.getText();
+                if (!shopType.equals("酒店") && !shopType.equals("美食") && !shopType.equals("超市")) {
+                    JOptionPane.showMessageDialog(NewShopDialog.this, "类型错误", "警告", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                int stationId=Query.getIdByName(textField_2.getText());
+                if (stationId == 0 && !textField_2.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(NewShopDialog.this, "站点不存在", "警告", JOptionPane.WARNING_MESSAGE);
+                }
+                String stationIdPref = String.format("%08x", stationId).substring(0, 4);
                 // int shopTypeId = Query.getIdByName(textField_7.getText());
                 // String shopTypeIdStr = String.format("0x%08x",
                 // shop[0].getShopTypeId());
-                String shopType = textField_1.getText();
+
+
                 String shopTypeIdStr = null;
                 if (shopType.equals("酒店")) {
                     shopTypeIdStr = "01";

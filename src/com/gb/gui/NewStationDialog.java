@@ -5,6 +5,8 @@ import com.gb.util.Query;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -62,11 +64,33 @@ public class NewStationDialog extends JDialog {
         textField_2.setBounds(98, 134, 79, 21);
         contentPanel.add(textField_2);
         textField_2.setColumns(10);
-        
+
         JLabel label_3 = new JLabel("* \u7EBF\u8DEF\u4E0D\u5B58\u5728");
         label_3.setForeground(new Color(255, 99, 71));
         label_3.setBounds(98, 115, 79, 15);
+        label_3.setVisible(false);
         contentPanel.add(label_3);
+        (textField_1.getDocument()).addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                changedUpdate(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                changedUpdate(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                int lineId = Query.getIdByName(textField_1.getText());
+                if (lineId == 0 && !textField_1.getText().isEmpty()) {
+                    label_3.setVisible(true);
+                } else {
+                    label_3.setVisible(false);
+                }
+            }
+        });
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int lineId = Query.getIdByName(textField_1.getText());

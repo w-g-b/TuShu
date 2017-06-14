@@ -26,7 +26,7 @@ public class NewLineDialog extends JDialog {
         contentPanel.setLayout(null);
 
         JLabel label = new JLabel("\u7EBF\u8DEF\u540D:");
-        label.setBounds(44, 54, 42, 15);
+        label.setBounds(39, 54, 57, 15);
         contentPanel.add(label);
 
         textField = new JTextField();
@@ -45,7 +45,6 @@ public class NewLineDialog extends JDialog {
                     Query.addInfo(info);
                     JOptionPane.showMessageDialog(NewLineDialog.this, "新建成功", "保存", JOptionPane.INFORMATION_MESSAGE);
                     dispose();
-//                    modifyDialog.dispose();
                 }
             }
         });
@@ -55,6 +54,11 @@ public class NewLineDialog extends JDialog {
         JButton button_1 = new JButton("\u53D6\u6D88");
         button_1.setBounds(29, 116, 66, 23);
         contentPanel.add(button_1);
+        
+        JLabel label_1 = new JLabel("* \u7EBF\u8DEF\u5DF2\u5B58\u5728");
+        label_1.setForeground(new Color(255, 99, 71));
+        label_1.setBounds(86, 79, 85, 15);
+        contentPanel.add(label_1);
         button_1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

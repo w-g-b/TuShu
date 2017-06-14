@@ -25,7 +25,7 @@ public class NewShopDialog extends JDialog {
 	 */
     public NewShopDialog(ModifyDialog modifyDialog, String s, boolean b) {
         super(modifyDialog, s, b);
-        setBounds(500, 300, 265, 383);
+        setBounds(500, 300, 282, 383);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -36,7 +36,7 @@ public class NewShopDialog extends JDialog {
         contentPanel.add(label);
 
         textField = new JTextField();
-        textField.setBounds(127, 28, 66, 21);
+        textField.setBounds(113, 28, 76, 21);
         contentPanel.add(textField);
         textField.setColumns(10);
 
@@ -53,34 +53,34 @@ public class NewShopDialog extends JDialog {
         contentPanel.add(label_1);
 
         textField_1 = new JTextField();
-        textField_1.setBounds(127, 61, 66, 21);
+        textField_1.setBounds(113, 61, 76, 21);
         contentPanel.add(textField_1);
         textField_1.setColumns(10);
 
         JLabel label_2 = new JLabel("\u9644\u8FD1\u7AD9\u70B9:");
-        label_2.setBounds(49, 98, 54, 15);
+        label_2.setBounds(49, 101, 54, 15);
         contentPanel.add(label_2);
 
         textField_2 = new JTextField();
-        textField_2.setBounds(127, 98, 66, 21);
+        textField_2.setBounds(113, 98, 76, 21);
         contentPanel.add(textField_2);
         textField_2.setColumns(10);
         
         JLabel label_3 = new JLabel("\u8DDD\u79BB:");
-        label_3.setBounds(61, 129, 54, 15);
+        label_3.setBounds(61, 132, 54, 15);
         contentPanel.add(label_3);
         
         textField_3 = new JTextField();
-        textField_3.setBounds(127, 129, 66, 21);
+        textField_3.setBounds(113, 129, 76, 21);
         contentPanel.add(textField_3);
         textField_3.setColumns(10);
         
         JLabel label_4 = new JLabel("\u8BC4\u5206:");
-        label_4.setBounds(61, 161, 54, 15);
+        label_4.setBounds(61, 164, 54, 15);
         contentPanel.add(label_4);
         
         textField_4 = new JTextField();
-        textField_4.setBounds(127, 161, 66, 21);
+        textField_4.setBounds(113, 161, 76, 21);
         contentPanel.add(textField_4);
         textField_4.setColumns(10);
         
@@ -89,11 +89,21 @@ public class NewShopDialog extends JDialog {
         contentPanel.add(label_5);
         
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(57, 212, 147, 75);
+        scrollPane.setBounds(47, 212, 172, 74);
         contentPanel.add(scrollPane);
         
         JTextArea textArea = new JTextArea();
         scrollPane.setViewportView(textArea);
+        
+        JLabel label_6 = new JLabel("*");
+        label_6.setForeground(new Color(255, 99, 71));
+        label_6.setBounds(199, 64, 42, 15);
+        contentPanel.add(label_6);
+        
+        JLabel label_7 = new JLabel("*");
+        label_7.setForeground(new Color(255, 99, 71));
+        label_7.setBounds(199, 101, 42, 15);
+        contentPanel.add(label_7);
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String stationIdPref = String.format("%08x", Query.getIdByName(textField_2.getText())).substring(0, 4);

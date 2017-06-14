@@ -33,35 +33,40 @@ public class NewStationDialog extends JDialog {
         contentPanel.add(label);
 
         textField = new JTextField();
-        textField.setBounds(98, 48, 66, 21);
+        textField.setBounds(98, 48, 79, 21);
         contentPanel.add(textField);
         textField.setColumns(10);
 
         JButton button = new JButton("\u65B0\u5EFA");
-        button.setBounds(105, 162, 70, 23);
+        button.setBounds(107, 176, 70, 23);
         contentPanel.add(button);
 
         JButton button_1 = new JButton("\u53D6\u6D88");
-        button_1.setBounds(29, 162, 66, 23);
+        button_1.setBounds(30, 176, 66, 23);
         contentPanel.add(button_1);
 
         JLabel label_1 = new JLabel("\u6240\u5C5E\u7EBF\u8DEF:");
-        label_1.setBounds(30, 85, 66, 15);
+        label_1.setBounds(30, 95, 66, 15);
         contentPanel.add(label_1);
 
         textField_1 = new JTextField();
-        textField_1.setBounds(98, 79, 66, 21);
+        textField_1.setBounds(98, 92, 79, 21);
         contentPanel.add(textField_1);
         textField_1.setColumns(10);
 
         JLabel label_2 = new JLabel("\u662F\u5426\u6362\u4E58:");
-        label_2.setBounds(32, 115, 63, 15);
+        label_2.setBounds(32, 137, 63, 15);
         contentPanel.add(label_2);
 
         textField_2 = new JTextField();
-        textField_2.setBounds(98, 109, 66, 21);
+        textField_2.setBounds(98, 134, 79, 21);
         contentPanel.add(textField_2);
         textField_2.setColumns(10);
+        
+        JLabel label_3 = new JLabel("* \u7EBF\u8DEF\u4E0D\u5B58\u5728");
+        label_3.setForeground(new Color(255, 99, 71));
+        label_3.setBounds(98, 115, 79, 15);
+        contentPanel.add(label_3);
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int lineId = Query.getIdByName(textField_1.getText());

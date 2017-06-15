@@ -12,16 +12,15 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellRenderer;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeSelectionModel;
+import javax.swing.tree.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Vector;
 
 public class ModifyDialog extends JDialog {
 
@@ -44,7 +43,7 @@ public class ModifyDialog extends JDialog {
     private JTree tree;
     private DefaultTreeModel treeModel;
     private DefaultMutableTreeNode treeRoot;
-    private DefaultTreeCellRenderer treeCellRenderer;
+//    private DefaultTreeCellRenderer treeCellRenderer;
 
     /**
      * Create the dialog.
@@ -243,48 +242,32 @@ public class ModifyDialog extends JDialog {
         treeRoot = initTreeRoot();
         treeModel = new DefaultTreeModel(treeRoot);
         tree = new JTree(treeModel);
-        ImageIcon image1 = new ImageIcon("info/image1.png");
-        ImageIcon image2 = new ImageIcon("info/image2.png");
-        ImageIcon image3 = new ImageIcon("info/image3.png");
-        image1.setImage(image1.getImage().getScaledInstance(15,15,Image.SCALE_DEFAULT));
-        image2.setImage(image2.getImage().getScaledInstance(15,15,Image.SCALE_DEFAULT));
-        image3.setImage(image3.getImage().getScaledInstance(15,15,Image.SCALE_DEFAULT));
-        treeCellRenderer = new DefaultTreeCellRenderer();
-        treeCellRenderer.setLeafIcon(image1);
-        treeCellRenderer.setClosedIcon(image2);
-        treeCellRenderer.setOpenIcon(image3);
-        tree.setCellRenderer(treeCellRenderer);
+        ImageIcon lineIcon = new ImageIcon("info/lineIcon.png");
+        ImageIcon stationIcon = new ImageIcon("info/stationIcon.png");
+        ImageIcon shopIcon = new ImageIcon("info/shopIcon.png");
+        ImageIcon subwayIcon = new ImageIcon("info/subwayIcon.jpg");
+        lineIcon.setImage(lineIcon.getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
+        stationIcon.setImage(stationIcon.getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
+        shopIcon.setImage(shopIcon.getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
+        subwayIcon.setImage(subwayIcon.getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
+//        treeCellRenderer = new DefaultTreeCellRenderer();
+//        treeCellRenderer.setLeafIcon(image1);
+//        treeCellRenderer.setClosedIcon(image2);
+//        treeCellRenderer.setOpenIcon(shopIcon);
+//        tree.setCellRenderer(treeCellRenderer);
+        MyRender myRender = new MyRender(lineIcon, stationIcon, shopIcon, subwayIcon);
+        tree.setCellRenderer(myRender);
+
 
 //        tree.setEditable(true);
         tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 
-//        treeModel.addTreeModelListener(new TreeModelListener() {
-//            @Override
-//            public void treeNodesChanged(TreeModelEvent e) {
-//
-//            }
-//
-//            @Override
-//            public void treeNodesInserted(TreeModelEvent e) {
-//
-//            }
-//
-//            @Override
-//            public void treeNodesRemoved(TreeModelEvent e) {
-//
-//            }
-//
-//            @Override
-//            public void treeStructureChanged(TreeModelEvent e) {
-//
-//            }
-//        });
 //        tree.setRootVisible(false);
         //用水平线分隔
 //        tree.putClientProperty("JTree.lineStyle", "Horizontal");
         //不显示任何行线
 //        tree.putClientProperty("JTree.lineStyle", "None");
-
+        tree.setShowsRootHandles(true);
 
         tree.addTreeSelectionListener(new TreeSelectionListener() {
 
@@ -472,10 +455,10 @@ public class ModifyDialog extends JDialog {
             @Override
             public void changedUpdate(DocumentEvent e) {
                 if (!(textField_2.getText().isEmpty())) {
-                    ArrayList<String> finallyStatinIdList = Query.getIdBySameName(textField_2.getText());
-                    if (finallyStatinIdList.size() != 0) {
+                    ArrayList<String> finallyStationIdList = Query.getIdBySameName(textField_2.getText());
+                    if (finallyStationIdList.size() != 0) {
                         boolean b = false;
-                        for (String finallyStationId : finallyStatinIdList) {
+                        for (String finallyStationId : finallyStationIdList) {
                             b = Query.isLineStation(line.getId(), Integer.parseInt(finallyStationId, 16));
                             if (b) {
                                 break;
@@ -537,24 +520,11 @@ public class ModifyDialog extends JDialog {
                 Query.modifyInfo(line.getId(), lineInfo);
                 JOptionPane.showMessageDialog(ModifyDialog.this, "保存成功", "保存", JOptionPane.INFORMATION_MESSAGE);
 
-//                root.removeAllChildren();
-//                refreshRoot(root);
-
-//                root.removeAllChildren();
-//                refreshRoot(root);
-//                treeModel.reload();
-                // System.out.println("保存线路");
-//                DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(new Line(lineInfo));
-//                treeModel.
-
-//                treeModel.insertNodeInto(node,(DefaultMutableTreeNode)node.getParent(),node.getChildCount());
-//                treeModel.removeNodeFromParent(node);
-                DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-//                Line line = (Line) node.getUserObject();
-//                line.setName(textField.getText());
-                node.setUserObject(new Line(lineInfo));
-
-                treeModel.reload(node);
+//                DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+//                node.setUserObject(new Line(lineInfo));
+//
+//                treeModel.reload(node);
+                updateTree();
             }
 
         });
@@ -598,9 +568,10 @@ public class ModifyDialog extends JDialog {
 //                node.setUserObject(new SpecificShop(info));
 //                treeModel.reload(node);
 
-                treeRoot.removeAllChildren();
-                refreshRoot(treeRoot);
-                treeModel.reload(treeRoot);
+//                treeRoot.removeAllChildren();
+//                refreshRoot(treeRoot);
+//                treeModel.reload(treeRoot);
+                updateTree();
 
             }
         });
@@ -624,44 +595,16 @@ public class ModifyDialog extends JDialog {
 //                node.setUserObject(new Station(info));
 //                treeModel.reload(node);
 
-                treeRoot.removeAllChildren();
-                refreshRoot(treeRoot);
-                treeModel.reload(treeRoot);
+//                treeRoot.removeAllChildren();
+//                refreshRoot(treeRoot);
+//                treeModel.reload(treeRoot);
+                updateTree();
             }
         });
         scrollPane.setViewportView(tree);
         menu = new JPopupMenu();
         menu.setVisible(true);
         rightMouse();
-//        scrollPane.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                addMouseListener(new MouseAdapter() {
-//                    @Override
-//                    public void mouseClicked(MouseEvent e) {
-//                        if (e.getButton() == MouseEvent.BUTTON3) {
-//
-//                            if (station== null) {
-//                                removeStation.setVisible(false);
-//                            } else {
-//                                removeStation.setVisible(true);
-//                            }
-//                            if (line == null) {
-//                                removeLine.setVisible(false);
-//                            } else {
-//                                removeLine.setVisible(true);
-//                            }
-//                            if (shop == null) {
-//                                removeShop.setVisible(false);
-//                            } else {
-//                                removeShop.setVisible(true);
-//                            }
-//                            menu.show(ModifyDialog.this, e.getX(), e.getY());
-//                        }
-//                    }
-//                });
-//            }
-//        });
     }
 
 
@@ -734,9 +677,10 @@ public class ModifyDialog extends JDialog {
 
                 NewLineDialog dialog = new NewLineDialog(ModifyDialog.this, "新建线路", true);
                 dialog.setVisible(true);
-                treeRoot.removeAllChildren();
-                refreshRoot(treeRoot);
-                treeModel.reload(treeRoot);
+//                treeRoot.removeAllChildren();
+//                refreshRoot(treeRoot);
+//                treeModel.reload(treeRoot);
+                updateTree();
 //                tree.expandRow(0);
             }
         });
@@ -746,9 +690,10 @@ public class ModifyDialog extends JDialog {
 
                 NewStationDialog dialog = new NewStationDialog(ModifyDialog.this, "新建站点", true);
                 dialog.setVisible(true);
-                treeRoot.removeAllChildren();
-                refreshRoot(treeRoot);
-                treeModel.reload(treeRoot);
+//                treeRoot.removeAllChildren();
+//                refreshRoot(treeRoot);
+//                treeModel.reload(treeRoot);
+                updateTree();
             }
         });
         newShop.addActionListener(new ActionListener() {
@@ -757,9 +702,10 @@ public class ModifyDialog extends JDialog {
 
                 NewShopDialog dialog = new NewShopDialog(ModifyDialog.this, "新建店铺", true);
                 dialog.setVisible(true);
-                treeRoot.removeAllChildren();
-                refreshRoot(treeRoot);
-                treeModel.reload(treeRoot);
+//                treeRoot.removeAllChildren();
+//                refreshRoot(treeRoot);
+//                treeModel.reload(treeRoot);
+                updateTree();
             }
         });
         removeLine.addActionListener(new ActionListener() {
@@ -769,9 +715,10 @@ public class ModifyDialog extends JDialog {
                     Query.deleteInfo(line.getId(), 4);
                     JOptionPane.showMessageDialog(ModifyDialog.this, "删除数据成功", "删除", JOptionPane.INFORMATION_MESSAGE);
 
-                    treeRoot.removeAllChildren();
-                    refreshRoot(treeRoot);
-                    treeModel.reload(treeRoot);
+//                    treeRoot.removeAllChildren();
+//                    refreshRoot(treeRoot);
+//                    treeModel.reload(treeRoot);
+                    updateTree();
                 }
             }
         });
@@ -781,9 +728,10 @@ public class ModifyDialog extends JDialog {
                 if (station != null) {
                     Query.deleteInfo(station.getId(), 6);
                     JOptionPane.showMessageDialog(ModifyDialog.this, "删除数据成功", "删除", JOptionPane.INFORMATION_MESSAGE);
-                    treeRoot.removeAllChildren();
-                    refreshRoot(treeRoot);
-                    treeModel.reload(treeRoot);
+//                    treeRoot.removeAllChildren();
+//                    refreshRoot(treeRoot);
+//                    treeModel.reload(treeRoot);
+                    updateTree();
                 }
             }
         });
@@ -794,9 +742,10 @@ public class ModifyDialog extends JDialog {
                     Query.deleteInfo(shop.getId(), 10);
                     JOptionPane.showMessageDialog(ModifyDialog.this, "删除数据成功", "删除", JOptionPane.INFORMATION_MESSAGE);
 
-                    treeRoot.removeAllChildren();
-                    refreshRoot(treeRoot);
-                    treeModel.reload(treeRoot);
+//                    treeRoot.removeAllChildren();
+//                    refreshRoot(treeRoot);
+//                    treeModel.reload(treeRoot);
+                    updateTree();
                 }
             }
         });
@@ -806,5 +755,103 @@ public class ModifyDialog extends JDialog {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("地铁");
         refreshRoot(root);
         return root;
+    }
+
+    class MyRender extends DefaultTreeCellRenderer {
+        Icon lineIcon;
+        Icon stationIcon;
+        Icon shopIcon;
+        Icon subwayIcon;
+
+        public MyRender(Icon lineIcon, Icon stationIcon, Icon shopIcon, Icon subwayIcon) {
+            this.lineIcon = lineIcon;
+            this.stationIcon = stationIcon;
+            this.shopIcon = shopIcon;
+            this.subwayIcon = subwayIcon;
+        }
+
+        @Override
+        public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
+            super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
+            if (node == null) {
+                return this;
+            }
+            Object obj = node.getUserObject();
+            if (obj instanceof Line) {
+                setIcon(lineIcon);
+            } else if (obj instanceof Station) {
+                setIcon(stationIcon);
+            } else if (obj instanceof SpecificShop) {
+                setIcon(shopIcon);
+            } else {
+                setIcon(subwayIcon);
+            }
+
+            return this;
+        }
+    }
+
+    public void updateTree() {
+        Vector<TreePath> v = new Vector<TreePath>();
+        getExpandNode(treeRoot, v);
+        treeRoot.removeAllChildren();
+        refreshRoot(treeRoot);
+        treeModel.reload();
+
+        int n = v.size();
+        for (int i = 0; i < n; i++) {
+            Object[] objArr = v.get(i).getPath();
+            Vector<Object> vec = new Vector<Object>();
+            int len = objArr.length;
+            for (int j = 0; j < len; j++) {
+                vec.add(objArr[j]);
+            }
+            expandNode(tree, treeRoot, vec);
+        }
+    }
+
+    public Vector<TreePath> getExpandNode(TreeNode node, Vector<TreePath> v) {
+        if (node.getChildCount() > 0) {
+            TreePath treePath = new TreePath(treeModel.getPathToRoot(node));
+            if (tree.isExpanded(treePath)) v.add(treePath);
+            for (Enumeration e = node.children(); e.hasMoreElements(); ) {
+                TreeNode n = (TreeNode) e.nextElement();
+                getExpandNode(n, v);
+            }
+        }
+        return v;
+    }
+
+    /**
+     * @param myTree   树
+     * @param currNode 展开节点的父节点
+     * @param vNode    展开节点，路径字符串|路径Node组成的Vector，按从根节点开始，依次添加到Vector
+     */
+    void expandNode(JTree myTree, DefaultMutableTreeNode currNode, Vector<Object> vNode) {
+        if (currNode.getParent() == null) {
+            vNode.removeElementAt(0);
+        }
+        if (vNode.size() <= 0) return;
+
+        int childCount = currNode.getChildCount();
+        String strNode = vNode.elementAt(0).toString();
+        DefaultMutableTreeNode child = null;
+        boolean flag = false;
+        for (int i = 0; i < childCount; i++) {
+            child = (DefaultMutableTreeNode) currNode.getChildAt(i);
+            if (strNode.equals(child.toString())) {
+                flag = true;
+                break;
+            }
+        }
+        if (child != null && flag) {
+            vNode.removeElementAt(0);
+            if (vNode.size() > 0) {
+                expandNode(myTree, child, vNode);
+            } else {
+                myTree.expandPath(new TreePath(child.getPath()));
+            }
+        }
     }
 }

@@ -13,6 +13,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 import java.awt.*;
@@ -43,6 +44,7 @@ public class ModifyDialog extends JDialog {
     private JTree tree;
     private DefaultTreeModel treeModel;
     private DefaultMutableTreeNode treeRoot;
+    private DefaultTreeCellRenderer treeCellRenderer;
 
     /**
      * Create the dialog.
@@ -241,6 +243,18 @@ public class ModifyDialog extends JDialog {
         treeRoot = initTreeRoot();
         treeModel = new DefaultTreeModel(treeRoot);
         tree = new JTree(treeModel);
+        ImageIcon image1 = new ImageIcon("info/image1.png");
+        ImageIcon image2 = new ImageIcon("info/image2.png");
+        ImageIcon image3 = new ImageIcon("info/image3.png");
+        image1.setImage(image1.getImage().getScaledInstance(15,15,Image.SCALE_DEFAULT));
+        image2.setImage(image2.getImage().getScaledInstance(15,15,Image.SCALE_DEFAULT));
+        image3.setImage(image3.getImage().getScaledInstance(15,15,Image.SCALE_DEFAULT));
+        treeCellRenderer = new DefaultTreeCellRenderer();
+        treeCellRenderer.setLeafIcon(image1);
+        treeCellRenderer.setClosedIcon(image2);
+        treeCellRenderer.setOpenIcon(image3);
+        tree.setCellRenderer(treeCellRenderer);
+
 //        tree.setEditable(true);
         tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 

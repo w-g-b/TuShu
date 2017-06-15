@@ -89,6 +89,17 @@ public class Query {
 
     }
 
+    public static int getLineIdByName(String name) {
+        for (String str : id2nameSet) {
+            if (str.matches("0x.{2}0{6}=" + name)) {
+                String numStr = str.substring(2);
+                return Integer.parseInt(numStr.split("=")[0], 16);
+            }
+        }
+        return 0;
+
+    }
+
     public static ArrayList<String> getIdBySameName(String name) {
         ArrayList<String> idList = new ArrayList<>();
         for (String str : id2nameSet) {
@@ -269,8 +280,8 @@ public class Query {
         return lindIdPref.equals(stationIdPref);
     }
 
+    //修改某站点下的所有的信息
     public static void modifyStationAllInfo(int id, String newInfo) {
-//         idStr = String.format("0x%08x", id);
         String idStrRegular = String.format("0x%08x", id).substring(0, 6);
         String idPref = newInfo.substring(0, 6);
         Set<String> newId2NameSet = new TreeSet<>();
@@ -280,7 +291,6 @@ public class Query {
             String str = it.next();
             if (str.matches(idStrRegular + ".{2}([0][^0]|[^0][0]).*")) {
                 String newStr = idPref + str.substring(6);
-                //id2nameSet.remove(str);
                 it.remove();
                 newId2NameSet.add(newStr);
                 String oldInfo = id2allTree.get(str.substring(0, 10));

@@ -352,7 +352,7 @@ public class ModifyDialog extends JDialog {
             @Override
             public void changedUpdate(DocumentEvent e) {
                 if (!(textField_4.getText().isEmpty())) {
-                    int lineId = Query.getIdByName(textField_4.getText());
+                    int lineId = Query.getLineIdByName(textField_4.getText());
                     if (lineId == 0) {
                         label_12.setVisible(true);
                     } else {
@@ -477,31 +477,6 @@ public class ModifyDialog extends JDialog {
             }
         });
 
-//        treeModel.addTreeModelListener(new TreeModelListener() {
-//            @Override
-//            public void treeNodesChanged(TreeModelEvent e) {
-//                System.out.println("change");
-//            }
-//
-//            @Override
-//            public void treeNodesInserted(TreeModelEvent e) {
-//                System.out.println("inserted");
-//
-//            }
-//
-//            @Override
-//            public void treeNodesRemoved(TreeModelEvent e) {
-//                System.out.println("remove");
-//
-//            }
-//
-//            @Override
-//            public void treeStructureChanged(TreeModelEvent e) {
-//                System.out.println("str");
-//
-//            }
-//        });
-
         button_2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -518,12 +493,8 @@ public class ModifyDialog extends JDialog {
                 String lineInfo = String.format("0x%08x", line.getId()) + " " + textField.getText() + " "
                         + firstStationIdStr + " " + finallyStationIdStr;
                 Query.modifyInfo(line.getId(), lineInfo);
+                line = new Line(lineInfo);
                 JOptionPane.showMessageDialog(ModifyDialog.this, "保存成功", "保存", JOptionPane.INFORMATION_MESSAGE);
-
-//                DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-//                node.setUserObject(new Line(lineInfo));
-//
-//                treeModel.reload(node);
                 updateTree();
             }
 
@@ -532,9 +503,6 @@ public class ModifyDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String stationIdPref = String.format("%08x", Query.getIdByName(textField_8.getText())).substring(0, 4);
-                // int shopTypeId = Query.getIdByName(textField_7.getText());
-                // String shopTypeIdStr = String.format("0x%08x",
-                // shop.getShopTypeId());
                 String shopType = textField_7.getText();
                 if (!shopType.equals("酒店") && !shopType.equals("美食") && !shopType.equals("超市")) {
                     JOptionPane.showMessageDialog(ModifyDialog.this, "类型错误", "警告", JOptionPane.WARNING_MESSAGE);
@@ -559,18 +527,13 @@ public class ModifyDialog extends JDialog {
                 String shopIdStr = String.format("0x%08x", AllocationId.newId(Integer.parseInt(shopIdStrPref, 16)));
                 String info = shopIdStr + " " + textField_6.getText() + " 0x" + stationIdPref + shopTypeIdStr + "00 "
                         + textField_9.getText() + " " + textField_10.getText() + " " + textArea.getText();
+                //修改文件中的数据以及内存中的数据
                 Query.modifyInfo(shop.getId(), info);
-                // JTree tree = new JTree(initTreeRoot());
-                // scrollPane.setViewportView(tree);
+                //令shop保存修改后的数据
+                shop = new SpecificShop(info);
+                //保存成功提示框
                 JOptionPane.showMessageDialog(ModifyDialog.this, "保存成功", "保存", JOptionPane.INFORMATION_MESSAGE);
-
-//                DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-//                node.setUserObject(new SpecificShop(info));
-//                treeModel.reload(node);
-
-//                treeRoot.removeAllChildren();
-//                refreshRoot(treeRoot);
-//                treeModel.reload(treeRoot);
+                //JTree更新
                 updateTree();
 
             }
@@ -579,7 +542,7 @@ public class ModifyDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 保存站点
-                int lineId = Query.getIdByName(textField_4.getText());
+                int lineId = Query.getLineIdByName(textField_4.getText());
                 if (lineId == 0) {
                     JOptionPane.showMessageDialog(ModifyDialog.this, "线路不存在,无法保存", "警告", JOptionPane.WARNING_MESSAGE);
                     return;
@@ -589,15 +552,8 @@ public class ModifyDialog extends JDialog {
                 boolean isTranslate = textField_5.getText().equals("换乘") ? true : false;
                 String info = stationIdStr + " " + textField_3.getText() + " " + lineIdStr + " " + isTranslate;
                 Query.modifyStationAllInfo(station.getId(), info);
+                station = new Station(info);
                 JOptionPane.showMessageDialog(ModifyDialog.this, "保存成功", "保存", JOptionPane.INFORMATION_MESSAGE);
-                // System.out.println("保存站点");
-//                DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-//                node.setUserObject(new Station(info));
-//                treeModel.reload(node);
-
-//                treeRoot.removeAllChildren();
-//                refreshRoot(treeRoot);
-//                treeModel.reload(treeRoot);
                 updateTree();
             }
         });

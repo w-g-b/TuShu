@@ -502,7 +502,8 @@ public class ModifyDialog extends JDialog {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String stationIdPref = String.format("%08x", Query.getIdByName(textField_8.getText())).substring(0, 4);
+                //保存酒店
+//                String stationIdPref = String.format("%08x", stationsId).substring(0, 4);
                 String shopType = textField_7.getText();
                 if (!shopType.equals("酒店") && !shopType.equals("美食") && !shopType.equals("超市")) {
                     JOptionPane.showMessageDialog(ModifyDialog.this, "类型错误", "警告", JOptionPane.WARNING_MESSAGE);
@@ -519,18 +520,32 @@ public class ModifyDialog extends JDialog {
                     JOptionPane.showMessageDialog(ModifyDialog.this, "类型错误,无法保存", "警告", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                if (Query.getIdByName(textField_8.getText()) == 0) {
+                ArrayList<String> stationIds = Query.getStationIdsByName(textField_8.getText());
+                ArrayList<String> oldStationIds = Query.getStationIdsByName(shop.getStation().getName());
+                if (stationIds.size() == 0) {
                     JOptionPane.showMessageDialog(ModifyDialog.this, "站点不存在", "警告", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                String shopIdStrPref = stationIdPref + shopTypeIdStr + "00";
-                String shopIdStr = String.format("0x%08x", AllocationId.newId(Integer.parseInt(shopIdStrPref, 16)));
-                String info = shopIdStr + " " + textField_6.getText() + " 0x" + stationIdPref + shopTypeIdStr + "00 "
-                        + textField_9.getText() + " " + textField_10.getText() + " " + textArea.getText();
-                //修改文件中的数据以及内存中的数据
-                Query.modifyInfo(shop.getId(), info);
+                SpecificShop oldShop = shop;
+                for (String oldStationId : oldStationIds) {
+                    int oldShopId = Query.getShopIdByStationAndInfo(oldStationId, oldShop.getInfo());
+                    Query.deleteInfo(oldShopId, 10);
+                }
+//                Query.deleteInfo(oldShop.getId(), 10);
+                for (String stationId : stationIds) {
+                    String stationIdPref = stationId.substring(2, 6);
+                    String shopIdStrPref = stationIdPref + shopTypeIdStr + "00";
+                    String shopIdStr = String.format("0x%08x", AllocationId.newId(Integer.parseInt(shopIdStrPref, 16)));
+                    String info = shopIdStr + " " + textField_6.getText() + " 0x" + stationIdPref + shopTypeIdStr + "00 "
+                            + textField_9.getText() + " " + textField_10.getText() + " " + textArea.getText();
+                    //修改文件中的数据以及内存中的数据
+//                    Query.deleteInfo(shop.getId(), 10);
+                    int oldShopId = Query.getShopIdByStationAndInfo(stationId, oldShop.getInfo());
+                    Query.modifyInfo(oldShopId, info);
+//                    Query.deleteInfo(oldShopId, 10);
+                    shop = new SpecificShop(info);
+                }
                 //令shop保存修改后的数据
-                shop = new SpecificShop(info);
                 //保存成功提示框
                 JOptionPane.showMessageDialog(ModifyDialog.this, "保存成功", "保存", JOptionPane.INFORMATION_MESSAGE);
                 //JTree更新

@@ -107,4 +107,8 @@ public class SpecificShop {
     public String toString() {
         return name;
     }
+
+    public String getInfo() {
+        return String.format("0x%08x", id) + " " + name + " " + String.format("0x%08x", shopTypeId) + " " + distanceToStation + " " + remarkGrade + " " + remarkContent;
+    }
 }

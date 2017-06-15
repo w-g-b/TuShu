@@ -86,7 +86,6 @@ public class Query {
             }
         }
         return 0;
-
     }
 
     public static int getLineIdByName(String name) {
@@ -97,7 +96,33 @@ public class Query {
             }
         }
         return 0;
+    }
 
+    public static ArrayList<String> getStationIdsByName(String name) {
+        ArrayList<String> stationIds = new ArrayList<>();
+        for (String str : id2nameSet) {
+            if (str.matches("0x([0][^0]|[^0].).{2}0000=" + name)) {
+//                String numStr = str.substring(2);
+//                return Integer.parseInt(numStr.split("=")[0], 16);
+                stationIds.add(str.split("=")[0]);
+            }
+        }
+        return stationIds;
+    }
+
+    public static int getShopIdByStationAndInfo(String stationId, String shopInfo) {
+        for (String str : id2nameSet) {
+            if (str.matches(stationId.substring(0, 6) + ".*")) {
+                String[] info1Split = shopInfo.split(" +");
+                String[] info2Split = id2allTree.get(str.substring(0, 10)).split(" +");
+                if (info1Split[1].equals(info2Split[1]) &&
+                        info1Split[3].equals(info2Split[3]) &&
+                        info1Split[4].equals(info2Split[4])) {
+                    return Integer.parseInt(str.substring(2, 10), 16);
+                }
+            }
+        }
+        return  0;
     }
 
     public static ArrayList<String> getIdBySameName(String name) {
@@ -196,6 +221,7 @@ public class Query {
         }
         return "";
     }
+
 
     public static ArrayList<String> getShopInfosByStationId(int id, String shopType) {
         String idStr = String.format("0x%08x", id);
@@ -302,16 +328,6 @@ public class Query {
                 newId2AllTree.put(newStr.substring(0, 10), oldInfo);
             }
         }
-//        for (String str : id2nameSet) {
-//            if (str.matches(idStrRegular + ".{2}([0][^0]|[^0][0]).*")) {
-//                String newStr = idPref + str.substring(6);
-//                id2nameSet.remove(str);
-//                newId2NameSet.add(newStr);
-//                String oldInfo = id2allTree.get(str.substring(0, 10));
-//                id2allTree.remove(str.substring(0, 10));
-//                newId2AllTree.put(newStr.substring(0, 10), oldInfo);
-//            }
-//        }
         id2nameSet.addAll(newId2NameSet);
         id2allTree.putAll(newId2AllTree);
         String idStr = String.format("0x%08x", id);
@@ -336,6 +352,10 @@ public class Query {
     }
 
     public static void deleteInfo(int id, int infoType) {
+        //infoType中
+        //4表示删线路
+        //6表示删站点
+        //10表示删店铺
         String idStrRegular = String.format("0x%08x", id).substring(0, infoType);
         Iterator<String> it = id2nameSet.iterator();
         while (it.hasNext()) {

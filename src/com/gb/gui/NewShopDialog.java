@@ -159,9 +159,6 @@ public class NewShopDialog extends JDialog {
                     JOptionPane.showMessageDialog(NewShopDialog.this, "¿‡–Õ¥ÌŒÛ", "æØ∏Ê", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                // int shopTypeId = Query.getIdByName(textField_7.getText());
-                // String shopTypeIdStr = String.format("0x%08x",
-                // shop[0].getShopTypeId());
 
                 String shopTypeIdStr = null;
                 if (shopType.equals("æ∆µÍ")) {

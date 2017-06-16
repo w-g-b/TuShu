@@ -710,9 +710,19 @@ public class ModifyDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (shop != null) {
-                    Query.deleteInfo(shop.getId(), 10);
-                    JOptionPane.showMessageDialog(ModifyDialog.this, "删除数据成功", "删除", JOptionPane.INFORMATION_MESSAGE);
-
+//                    Query.deleteInfo(shop.getId(), 10);
+//                    JOptionPane.showMessageDialog(ModifyDialog.this, "删除数据成功", "删除", JOptionPane.INFORMATION_MESSAGE);
+                    ArrayList<String> stationIds = Query.getStationIdsByName(textField_8.getText());
+                    ArrayList<String> oldStationIds = Query.getStationIdsByName(shop.getStation().getName());
+//                    if (stationIds.size() == 0) {
+//                        JOptionPane.showMessageDialog(ModifyDialog.this, "站点不存在", "警告", JOptionPane.WARNING_MESSAGE);
+//                        return;
+//                    }
+                    SpecificShop oldShop = shop;
+                    for (String oldStationId : oldStationIds) {
+                        int oldShopId = Query.getShopIdByStationAndInfo(oldStationId, oldShop.getInfo());
+                        Query.deleteInfo(oldShopId, 10);
+                    }
 //                    treeRoot.removeAllChildren();
 //                    refreshRoot(treeRoot);
 //                    treeModel.reload(treeRoot);

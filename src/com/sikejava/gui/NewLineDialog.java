@@ -1,7 +1,7 @@
-package com.gb.gui;
+package com.sikejava.gui;
 
-import com.gb.util.AllocationId;
-import com.gb.util.Query;
+import com.sikejava.util.AllocationId;
+import com.sikejava.util.Query;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

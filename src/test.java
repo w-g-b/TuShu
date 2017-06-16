@@ -1,4 +1,4 @@
-import com.gb.util.Query;
+import com.sikejava.util.Query;
 
 public class test {
     public static void main(String[] args) {

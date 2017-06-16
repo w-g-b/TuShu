@@ -1,4 +1,4 @@
-package com.gb.gui;
+package com.sikejava.gui;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

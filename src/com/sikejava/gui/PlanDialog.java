@@ -1,7 +1,6 @@
-package com.gb.gui;
+package com.sikejava.gui;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;

@@ -1,4 +1,4 @@
-package com.gb.util;
+package com.sikejava.util;
 
 import java.io.BufferedReader;
 import java.io.File;

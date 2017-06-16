@@ -1,10 +1,10 @@
-package com.gb.gui;
+package com.sikejava.gui;
 
-import com.gb.object.Line;
-import com.gb.object.SpecificShop;
-import com.gb.object.Station;
-import com.gb.util.AllocationId;
-import com.gb.util.Query;
+import com.sikejava.object.Line;
+import com.sikejava.object.SpecificShop;
+import com.sikejava.object.Station;
+import com.sikejava.util.AllocationId;
+import com.sikejava.util.Query;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

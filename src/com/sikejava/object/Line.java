@@ -1,7 +1,7 @@
-package com.gb.object;
+package com.sikejava.object;
 
-import com.gb.util.AllocationId;
-import com.gb.util.Query;
+import com.sikejava.util.AllocationId;
+import com.sikejava.util.Query;
 
 public class Line {
     private int id;

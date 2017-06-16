@@ -1,4 +1,4 @@
-package com.gb.util;
+package com.sikejava.util;
 
 public class AllocationId {
     public static final int LINE_TYPE = 0;

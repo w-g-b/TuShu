@@ -431,13 +431,15 @@ public class ModifyDialog extends JDialog {
                             }
                         }
                         if (b) {
-                            label_11.setVisible(false);
+                            label_10.setVisible(false);
                         } else {
-                            label_11.setVisible(true);
+                            label_10.setVisible(true);
                         }
                     } else {
-                        label_11.setVisible(true);
+                        label_10.setVisible(true);
                     }
+                } else {
+                    label_10.setVisible(false);
                 }
             }
         });
@@ -472,7 +474,8 @@ public class ModifyDialog extends JDialog {
                     } else {
                         label_11.setVisible(true);
                     }
-
+                } else {
+                    label_11.setVisible(false);
                 }
             }
         });
@@ -483,11 +486,12 @@ public class ModifyDialog extends JDialog {
                 // 保存线路
                 int firstStationId = Query.getIdByName(textField_1.getText());
                 int finallyStationId = Query.getIdByName(textField_2.getText());
-                if (!Query.isLineStation(line.getId(), firstStationId)
-                        || !Query.isLineStation(line.getId(), finallyStationId)) {
+                if ((!textField_1.getText().isEmpty() && !Query.isLineStation(line.getId(), firstStationId)) ||
+                        !textField_2.getText().isEmpty() && !!Query.isLineStation(line.getId(), finallyStationId)) {
                     JOptionPane.showMessageDialog(ModifyDialog.this, "站点信息错误,无法保存", "警告", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
+
                 String firstStationIdStr = String.format("0x%08x", firstStationId);
                 String finallyStationIdStr = String.format("0x%08x", finallyStationId);
                 String lineInfo = String.format("0x%08x", line.getId()) + " " + textField.getText() + " "

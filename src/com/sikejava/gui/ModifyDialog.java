@@ -487,7 +487,7 @@ public class ModifyDialog extends JDialog {
                 int firstStationId = Query.getIdByName(textField_1.getText());
                 int finallyStationId = Query.getIdByName(textField_2.getText());
                 if ((!textField_1.getText().isEmpty() && !Query.isLineStation(line.getId(), firstStationId)) ||
-                        !textField_2.getText().isEmpty() && !!Query.isLineStation(line.getId(), finallyStationId)) {
+                        !textField_2.getText().isEmpty() && !Query.isLineStation(line.getId(), finallyStationId)) {
                     JOptionPane.showMessageDialog(ModifyDialog.this, "站点信息错误,无法保存", "警告", JOptionPane.WARNING_MESSAGE);
                     return;
                 }

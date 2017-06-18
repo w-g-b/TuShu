@@ -95,6 +95,7 @@ public class NewShopDialog extends JDialog {
         contentPanel.add(scrollPane);
 
         JTextArea textArea = new JTextArea();
+        textArea.setLineWrap(true);
         scrollPane.setViewportView(textArea);
 
         JLabel label_6 = new JLabel("*");

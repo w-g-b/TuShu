@@ -72,39 +72,18 @@
             <Link To="体育西路" Line="1号线" Flag="0" Weight="3" />
             <Link To="动物园" Line="5号线" Flag="-1" Weight="3" />
             <Link To="五羊邨" Line="5号线" Flag="0" Weight="3" />
-
-
         </Node>
         <Node Name="体育西路" X="2425" Y="1520" IsTransfer="true">
             <Link To="杨箕" Line="1号线" Flag="-1" Weight="3" />
             <Link To="体育中心" Line="1号线" Flag="0" Weight="3" />
             <Link To="珠江新城" Line="3号线" Flag="-1" Weight="3" />
             <Link To="林和西" Line="3号线" Flag="0" Weight="3" />
-            <Link To="石牌桥" Line="3号线" Flag="0" Weight="3" />
-        </Node>
-        <Node Name="石牌桥" X="2590" Y="1520" IsTransfer="false">
-            <Link To="体育西路" Line="3号线" Flag="-1" Weight="3" />
-            <Link To="岗顶" Line="3号线" Flag="0" Weight="3" />
-        </Node>
-        <Node Name="岗顶" X="2700" Y="1420" IsTransfer="false">
-            <Link To="石牌桥" Line="3号线" Flag="-1" Weight="3" />
-            <Link To="华师" Line="3号线" Flag="0" Weight="3" />
-        </Node>
-        <Node Name="华师" X="2700" Y="1320" IsTransfer="false">
-            <Link To="岗顶" Line="3号线" Flag="-1" Weight="3" />
-            <Link To="五山" Line="3号线" Flag="0" Weight="3" />
-        </Node>
-        <Node Name="五山" X="2700" Y="1220" IsTransfer="false">
-            <Link To="华师" Line="3号线" Flag="-1" Weight="3" />
-            <Link To="天河客运站" Line="3号线" Flag="0" Weight="3" />
         </Node>
 
         <Node Name="体育中心" X="2585" Y="1435" IsTransfer="false">
             <Link To="体育西路" Line="1号线" Flag="-1" Weight="3" />
-            <Link To="广州东站" Line="1号线" Flag="0" Weight="3" />
         </Node>
         <Node Name="广州东站" X="2425" Y="1175" IsTransfer="true">
-            <Link To="体育中心" Line="1号线" Flag="-1" Weight="3" />
             <Link To="林和西" Line="3号线" Flag="-1" Weight="3" />
             <Link To="燕塘" Line="3号线" Flag="0" Weight="3" />
         </Node>
@@ -548,7 +527,6 @@
         </Node>
         <Node Name="天河客运站" X="2700" Y="1060" IsTransfer="true">
             <Link To="长湴" Line="6号线" Flag="0" Weight="3" />
-            <Link To="五山" Line="3号线" Flag="-1" Weight="3" />
             <Link To="燕塘" Line="6号线" Flag="-1" Weight="3" />
         </Node>
         <Node Name="长湴" X="2810" Y="990" IsTransfer="false">

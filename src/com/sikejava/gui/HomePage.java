@@ -1,11 +1,12 @@
 package com.sikejava.gui;
 
+import com.sikejava.MetroGraph.Paint;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class HomePage extends JFrame {
 
@@ -52,14 +53,9 @@ public class HomePage extends JFrame {
 		JButton planButton = new JButton("\u7EBF\u8DEF\u89C4\u5212");
 		planButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				PlanDialog dialog = new PlanDialog(HomePage.this, "线路规划", true);
-//				dialog.setVisible(true);
-				Runtime runtime = Runtime.getRuntime();
-				try {
-					runtime.exec("info/MetroGraphApp");
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+
+				com.sikejava.MetroGraph.Paint paint = new Paint();
+
 			}
 		});
 		planButton.setBounds(79, 132, 130, 23);

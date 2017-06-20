@@ -31,7 +31,6 @@ public class MetroGraph {
 
     private void LoadLines() {
 
-
         String data = FileUtil.read("info\\g.txt", null);
 
         String[] lines = data.split("\n");
@@ -53,6 +52,14 @@ public class MetroGraph {
         }
     }
 
+
+    /**
+     * 查找直达路线
+     * @param startNode
+     * @param endNode
+     * @param line
+     * @return
+     */
     public ArrayList<MetroNode> FindDrectPath(MetroNode startNode, MetroNode endNode, MetroLine line) {
 
         LoadLines();

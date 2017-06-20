@@ -14,8 +14,8 @@
     <Nodes>
         <Node Name="西朗" X="1062" Y="2000" IsTransfer="true">
             <Link To="坑口" Line="1号线" Flag="0" Weight="3" />
-            <Link To="菊树" Line="广佛线" Flag="-1" Weight="3" />
-            <Link To="鹤洞" Line="广佛线" Flag="0" Weight="3" />
+            <Link To="菊树" Line="广佛线" Flag="-1" Weight="3"/>
+            <Link To="鹤洞" Line="广佛线" Flag="0" Weight="3"/>
         </Node>
         <Node Name="坑口" X="1062" Y="1926" IsTransfer="false">
             <Link To="花地湾" Line="1号线" Flag="0" Weight="3" />

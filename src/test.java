@@ -8,5 +8,3 @@ public class test {
         System.out.println(Color.getColor("-1570792"));
     }
 }
-
-

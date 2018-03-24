@@ -75,22 +75,21 @@ public class NewLineDialog extends JDialog {
         });
         JButton button = new JButton("\u65B0\u5EFA");
         button.setBounds(105, 116, 66, 23);
-        button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String lineName = textField.getText();
-                int lineId = Query.getIdByName(lineName);
-                if (lineId != 0) {
-                    JOptionPane.showMessageDialog(NewLineDialog.this, "线路已存在", "警告", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-                if (!lineName.isEmpty() && !lineName.matches("[ ]+")) {
-                    lineId = AllocationId.newId(0);
-                    String lineIdStr = String.format("0x%08x", lineId);
-                    String info = lineIdStr + " " + textField.getText() + " " + "0x00000000" + " " + "0x00000000";
-                    Query.addInfo(info);
-                    JOptionPane.showMessageDialog(NewLineDialog.this, "新建成功", "保存", JOptionPane.INFORMATION_MESSAGE);
-                    dispose();
-                }
+        button.addActionListener(e -> {
+            String lineName = textField.getText();
+            int lineId = Query.getIdByName(lineName);
+            if (lineId != 0) {
+                JOptionPane.showMessageDialog(NewLineDialog.this, "线路已存在", "警告", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if (!lineName.isEmpty() && !lineName.matches("[ ]+")) {
+                lineId = AllocationId.newId(0);
+                String lineIdStr = String.format("0x%08x", lineId);
+                String info = lineIdStr + " " + textField.getText() + " " + "0x00000000" + " " + "0x00000000";
+                Query.addInfo(info);
+                JOptionPane.showMessageDialog(NewLineDialog.this, "新建成功", "保存", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+
             }
         });
         contentPanel.add(button);
